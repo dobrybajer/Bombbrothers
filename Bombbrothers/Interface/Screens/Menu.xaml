@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Bombbrothers.Interface.Screens.Menu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="670" d:DesignWidth="790">
+    <Grid>
+        <TextBlock Text="BombBrothers" FontSize="36" FontFamily="Snap ITC" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,70,0,0"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Name="m0" Foreground="Red" FontSize="20" FontWeight="Bold" Margin="0 0 0 10" HorizontalAlignment="Center" IsEnabled="False" />
+            <TextBlock Name="m1" Text="[Kontynuuj]" Foreground="Gray" FontSize="20" FontWeight="Bold" Margin="0 0 0 10" HorizontalAlignment="Center" IsEnabled="False" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseUp="TextBlock_MouseUp" />
+            <TextBlock Name="m2" Text="Nowa Gra" FontSize="20" FontWeight="Bold" Margin="0 0 0 10" HorizontalAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseUp="TextBlock_MouseUp"/>
+            <TextBlock Name="m3" Text="Najlepsze Wyniki" FontSize="20" FontWeight="Bold" Margin="0 0 0 10" HorizontalAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseUp="TextBlock_MouseUp"/>
+            <TextBlock Name="m4" Text="Ustawienia" FontSize="20" FontWeight="Bold" Margin="0 0 0 10" HorizontalAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseUp="TextBlock_MouseUp"/>
+            <TextBlock Name="m5" Text="Wyjście" FontSize="20" FontWeight="Bold" Margin="0 0 0 10" HorizontalAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseUp="TextBlock_MouseUp"/>
+            <TextBlock Name="m6" Text="Wyloguj" FontSize="20" FontWeight="Bold" Margin="0 0 0 10" HorizontalAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseUp="TextBlock_MouseUp"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
