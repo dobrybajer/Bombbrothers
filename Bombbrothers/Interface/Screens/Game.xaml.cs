@@ -1,59 +1,46 @@
 ﻿using Bombbrothers.Logic;
 using System;
-
 using System.Windows.Controls;
 using Bombbrothers.GameObjects.Map;
 using Bombbrothers.Additional;
-using System.Windows.Media;
-using System.Collections.ObjectModel;
-using System.Windows.Controls.Primitives;
 using System.Windows;
-using System.Windows.Input;
 using PlayerType = Bombbrothers.Logic.Enums.PlayerType;
-using System.Windows.Data;
-using System.Globalization;
-using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using Bombbrothers.GameObjects.Players;
 using Bombbrothers.GameObjects.Enemies;
-using System.Windows.Shapes;
-using System.Xml;
-using System.Threading;
-using System.Diagnostics;
 
 namespace Bombbrothers.Interface.Screens
 {
     /// <summary>
-    /// Interaction logic for Game.xaml
+    /// Logika dla kontrolki Game.xaml. Dziedziczy po UserControl oraz implementuje interfejs INavigable.
     /// </summary>
     public partial class Game : UserControl, INavigable
-    {
-        private MapBoard Board { get; set; }
-
-        private Player player { get; set; }
-
-        private List<Enemy> Enemies { get; set; }
-    
-
+    { 
+        /// <summary>
+        /// Konstruktor.
+        /// </summary>
         public Game()
         {
             InitializeComponent();
             PrepareGame();
         }
 
-
+        /// <summary>
+        /// Przygotowanie programu. Stworzenie odpowiednich elementów gry takich jak: gracz, wrogowie, plansze etc.
+        /// </summary>
         private void PrepareGame()
         {
-            Board = new MapBoard();
+            MapBoard Board = new MapBoard();
             GameParameters.ActualBoard = Board;
-            CreateGrid();
+            CreateGrid(Board);
 
-            Enemies = new List<Enemy>();
+            List<Enemy> Enemies = new List<Enemy>();
             Enemies.Add(new Human());
             Enemies.Add(new Matphys());
             Enemies.Add(new Human());
             GameParameters.Enemies = Enemies;
 
+            Player player;
             switch (GameParameters.PlayerType)
             {
                 case PlayerType.Agile:
@@ -82,23 +69,21 @@ namespace Bombbrothers.Interface.Screens
                 Field.Children.Add(e);
             }
 
-            SetGameParameters();
-        }
-
-        private void SetGameParameters()
-        {
             GameParameters.ActualCanvas = Field;
             GameParameters.ID = 0;
             GameParameters.ActualPlayer = player;
             GameParameters.Enemies = Enemies;
         }
 
-        private void CreateGrid()
+        /// <summary>
+        /// Tworzy panel Grid na podstawie kolekcji Tile[,] zawartej w MapBoard. Stworzony panel dodaje do aktualnego canvas.
+        /// </summary>
+        /// <param name="Board">Obiekt zawierający kolekcję Tile[,].</param>
+        private void CreateGrid(MapBoard Board)
         {
             Grid grid = new Grid();
             grid.Width = GameConst.Width;
-            grid.Height = GameConst.Height;
-            grid.ShowGridLines = true;
+            grid.Height = GameConst.Height;        
 
             int rows = Board.GetMapSize()[0];
             int columns = Board.GetMapSize()[1];
@@ -126,16 +111,13 @@ namespace Bombbrothers.Interface.Screens
             Field.Children.Add(grid);
         }
 
+        /// <summary>
+        /// Wywoływane, gdy kontrolka została załadowana z przekazaniem parametru. 
+        /// </summary>
+        /// <param name="state">Obiket przekazany kontrolce.</param>
         public void UtilizeState(object state)
         {
             throw new NotImplementedException();
         }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.Focusable = true;
-            this.Focus();
-        }
-
     }
 }

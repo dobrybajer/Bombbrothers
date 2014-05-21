@@ -4,8 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:player="clr-namespace:Bombbrothers.GameObjects.Players"
-      mc:Ignorable="d" 
-      Loaded="UserControl_Loaded">
+      mc:Ignorable="d">
     
     <DockPanel>
         <StackPanel Name="Info" Height="50" VerticalAlignment="Top" DockPanel.Dock="Top" Background="#FFC73434">

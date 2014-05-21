@@ -8,11 +8,13 @@ using System.Media;
 namespace Bombbrothers
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logika dla MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        /// <summary>
+        /// Konstruktor. Przygotowuje system plików aplikacji oraz ustawia zawartość okna na kontrolkę Title. Kontrolkami używanymi przez MainWindow są kontrolki typu UserControl.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -23,12 +25,21 @@ namespace Bombbrothers
             NavigationController.NavigateTo(new Title());
         }
 
+        /// <summary>
+        /// Metoda zmieniająca zawartość okna na kontrolkę podaną w parametrze.
+        /// </summary>
+        /// <param name="target">Docelowa zawartość okna.</param>
         public void Navigate(UserControl target)
         {
             this.content.Children.Clear();
             this.content.Children.Add(target);
         }
 
+        /// <summary>
+        /// Metoda zmieniająca zawartość okna na kontrolkę podaną w parametrze. Pozwala przekazać parametr pomiędzy kontrolkami.
+        /// </summary>
+        /// <param name="target">Docelowa zawartość okna.</param>
+        /// <param name="state">Obiekt przekazany między kontrolkami.</param>
         public void Navigate(UserControl target, object state)
         {
             this.content.Children.Clear();
@@ -46,14 +57,21 @@ namespace Bombbrothers
             }
         }
 
+        /// <summary>
+        /// Kończy działanie całej aplikacji.
+        /// </summary>
         public void Exit()
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Metoda przypisana do zdarzenia KeyDown głównego okna. Pozwala na wyjście do Menu Głównego za pomocą klawisza ESC w każdym miejscu działania programu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            //var s = sender as Key;
             if(e.Key == System.Windows.Input.Key.Escape)
             {
                 NavigationController.NavigateTo(new Bombbrothers.Interface.Screens.Menu());
