@@ -4,70 +4,59 @@
 //    <NameSpace>Bombbrothers</NameSpace><Collection>List</Collection><codeType>CSharp</codeType><EnableDataBinding>False</EnableDataBinding><EnableLazyLoading>False</EnableLazyLoading><TrackingChangesEnable>False</TrackingChangesEnable><GenTrackingClasses>False</GenTrackingClasses><HidePrivateFieldInIDE>False</HidePrivateFieldInIDE><EnableSummaryComment>True</EnableSummaryComment><VirtualProp>False</VirtualProp><IncludeSerializeMethod>True</IncludeSerializeMethod><UseBaseClass>False</UseBaseClass><GenBaseClass>False</GenBaseClass><GenerateCloneMethod>True</GenerateCloneMethod><GenerateDataContracts>False</GenerateDataContracts><CodeBaseTag>Net40</CodeBaseTag><SerializeMethodName>Serialize</SerializeMethodName><DeserializeMethodName>Deserialize</DeserializeMethodName><SaveToFileMethodName>SaveToFile</SaveToFileMethodName><LoadFromFileMethodName>LoadFromFile</LoadFromFileMethodName><GenerateXMLAttributes>False</GenerateXMLAttributes><OrderXMLAttrib>False</OrderXMLAttrib><EnableEncoding>True</EnableEncoding><AutomaticProperties>False</AutomaticProperties><GenerateShouldSerialize>False</GenerateShouldSerialize><DisableDebug>False</DisableDebug><PropNameSpecified>Default</PropNameSpecified><Encoder>UTF8</Encoder><CustomUsings></CustomUsings><ExcludeIncludedTypes>False</ExcludeIncludedTypes><EnableInitializeFields>False</EnableInitializeFields>
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
+
 namespace Bombbrothers
 {
-    using System;
-    using System.Diagnostics;
-    using System.Xml.Serialization;
-    using System.Collections;
-    using System.Xml.Schema;
-    using System.ComponentModel;
-    using System.IO;
-    using System.Text;
-    using System.Xml;
-    using System.Collections.Generic;
-
-
-    public partial class Settings
+    public class Settings
     {
-
+        private static XmlSerializer serializer;
         private List<SettingsControl> controlsField;
 
-        private static System.Xml.Serialization.XmlSerializer serializer;
-
-        [System.Xml.Serialization.XmlArrayItemAttribute("Control", IsNullable = false)]
+        [XmlArrayItem("Control", IsNullable = false)]
         public List<SettingsControl> Controls
         {
-            get
-            {
-                return this.controlsField;
-            }
-            set
-            {
-                this.controlsField = value;
-            }
+            get { return controlsField; }
+            set { controlsField = value; }
         }
 
-        private static System.Xml.Serialization.XmlSerializer Serializer
+        private static XmlSerializer Serializer
         {
             get
             {
                 if ((serializer == null))
                 {
-                    serializer = new System.Xml.Serialization.XmlSerializer(typeof(Settings));
+                    serializer = new XmlSerializer(typeof (Settings));
                 }
                 return serializer;
             }
         }
 
         #region Serialize/Deserialize
+
         /// <summary>
-        /// Serializes current Settings object into an XML document
+        ///     Serializes current Settings object into an XML document
         /// </summary>
         /// <returns>string XML value</returns>
-        public virtual string Serialize(System.Text.Encoding encoding)
+        public virtual string Serialize(Encoding encoding)
         {
-            System.IO.StreamReader streamReader = null;
-            System.IO.MemoryStream memoryStream = null;
+            StreamReader streamReader = null;
+            MemoryStream memoryStream = null;
             try
             {
-                memoryStream = new System.IO.MemoryStream();
-                System.Xml.XmlWriterSettings xmlWriterSettings = new System.Xml.XmlWriterSettings();
+                memoryStream = new MemoryStream();
+                var xmlWriterSettings = new XmlWriterSettings();
                 xmlWriterSettings.Encoding = encoding;
-                System.Xml.XmlWriter xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
+                XmlWriter xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
                 Serializer.Serialize(xmlWriter, this);
-                memoryStream.Seek(0, System.IO.SeekOrigin.Begin);
-                streamReader = new System.IO.StreamReader(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                streamReader = new StreamReader(memoryStream);
                 return streamReader.ReadToEnd();
             }
             finally
@@ -89,13 +78,13 @@ namespace Bombbrothers
         }
 
         /// <summary>
-        /// Deserializes workflow markup into an Settings object
+        ///     Deserializes workflow markup into an Settings object
         /// </summary>
         /// <param name="xml">string workflow markup to deserialize</param>
         /// <param name="obj">Output Settings object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
-        public static bool Deserialize(string xml, out Settings obj, out System.Exception exception)
+        public static bool Deserialize(string xml, out Settings obj, out Exception exception)
         {
             exception = null;
             obj = default(Settings);
@@ -104,7 +93,7 @@ namespace Bombbrothers
                 obj = Deserialize(xml);
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 exception = ex;
                 return false;
@@ -113,17 +102,17 @@ namespace Bombbrothers
 
         public static bool Deserialize(string xml, out Settings obj)
         {
-            System.Exception exception = null;
+            Exception exception = null;
             return Deserialize(xml, out obj, out exception);
         }
 
         public static Settings Deserialize(string xml)
         {
-            System.IO.StringReader stringReader = null;
+            StringReader stringReader = null;
             try
             {
-                stringReader = new System.IO.StringReader(xml);
-                return ((Settings)(Serializer.Deserialize(System.Xml.XmlReader.Create(stringReader))));
+                stringReader = new StringReader(xml);
+                return ((Settings) (Serializer.Deserialize(XmlReader.Create(stringReader))));
             }
             finally
             {
@@ -135,12 +124,12 @@ namespace Bombbrothers
         }
 
         /// <summary>
-        /// Serializes current Settings object into file
+        ///     Serializes current Settings object into file
         /// </summary>
         /// <param name="fileName">full path of outupt xml file</param>
         /// <param name="exception">output Exception value if failed</param>
         /// <returns>true if can serialize and save into file; otherwise, false</returns>
-        public virtual bool SaveToFile(string fileName, System.Text.Encoding encoding, out System.Exception exception)
+        public virtual bool SaveToFile(string fileName, Encoding encoding, out Exception exception)
         {
             exception = null;
             try
@@ -148,14 +137,14 @@ namespace Bombbrothers
                 SaveToFile(fileName, encoding);
                 return true;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 exception = e;
                 return false;
             }
         }
 
-        public virtual bool SaveToFile(string fileName, out System.Exception exception)
+        public virtual bool SaveToFile(string fileName, out Exception exception)
         {
             return SaveToFile(fileName, Encoding.UTF8, out exception);
         }
@@ -165,13 +154,13 @@ namespace Bombbrothers
             SaveToFile(fileName, Encoding.UTF8);
         }
 
-        public virtual void SaveToFile(string fileName, System.Text.Encoding encoding)
+        public virtual void SaveToFile(string fileName, Encoding encoding)
         {
-            System.IO.StreamWriter streamWriter = null;
+            StreamWriter streamWriter = null;
             try
             {
                 string xmlString = Serialize(encoding);
-                streamWriter = new System.IO.StreamWriter(fileName, false, Encoding.UTF8);
+                streamWriter = new StreamWriter(fileName, false, Encoding.UTF8);
                 streamWriter.WriteLine(xmlString);
                 streamWriter.Close();
             }
@@ -185,13 +174,13 @@ namespace Bombbrothers
         }
 
         /// <summary>
-        /// Deserializes xml markup from file into an Settings object
+        ///     Deserializes xml markup from file into an Settings object
         /// </summary>
         /// <param name="fileName">string xml file to load and deserialize</param>
         /// <param name="obj">Output Settings object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
-        public static bool LoadFromFile(string fileName, System.Text.Encoding encoding, out Settings obj, out System.Exception exception)
+        public static bool LoadFromFile(string fileName, Encoding encoding, out Settings obj, out Exception exception)
         {
             exception = null;
             obj = default(Settings);
@@ -200,21 +189,21 @@ namespace Bombbrothers
                 obj = LoadFromFile(fileName, encoding);
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 exception = ex;
                 return false;
             }
         }
 
-        public static bool LoadFromFile(string fileName, out Settings obj, out System.Exception exception)
+        public static bool LoadFromFile(string fileName, out Settings obj, out Exception exception)
         {
             return LoadFromFile(fileName, Encoding.UTF8, out obj, out exception);
         }
 
         public static bool LoadFromFile(string fileName, out Settings obj)
         {
-            System.Exception exception = null;
+            Exception exception = null;
             return LoadFromFile(fileName, out obj, out exception);
         }
 
@@ -223,14 +212,14 @@ namespace Bombbrothers
             return LoadFromFile(fileName, Encoding.UTF8);
         }
 
-        public static Settings LoadFromFile(string fileName, System.Text.Encoding encoding)
+        public static Settings LoadFromFile(string fileName, Encoding encoding)
         {
-            System.IO.FileStream file = null;
-            System.IO.StreamReader sr = null;
+            FileStream file = null;
+            StreamReader sr = null;
             try
             {
-                file = new System.IO.FileStream(fileName, FileMode.Open, FileAccess.Read);
-                sr = new System.IO.StreamReader(file, encoding);
+                file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                sr = new StreamReader(file, encoding);
                 string xmlString = sr.ReadToEnd();
                 sr.Close();
                 file.Close();
@@ -248,192 +237,137 @@ namespace Bombbrothers
                 }
             }
         }
+
         #endregion
 
         #region Clone method
+
         /// <summary>
-        /// Create a clone of this Settings object
+        ///     Create a clone of this Settings object
         /// </summary>
         public virtual Settings Clone()
         {
-            return ((Settings)(this.MemberwiseClone()));
+            return ((Settings) (MemberwiseClone()));
         }
+
         #endregion
     }
 
-    public partial class SettingsControl
+    public class SettingsControl
     {
-
-        private ulong userIdField;
-
-        private bool userIdFieldSpecified;
-
-        private string upField;
-
+        private static XmlSerializer serializer;
         private string downField;
+        private string dropBombField;
 
         private string leftField;
 
         private string rightField;
-
-        private string dropBombField;
+        private string upField;
 
         private string useBonusField;
 
         private string usePlayerBonusField;
+        private ulong userIdField;
 
-        private static System.Xml.Serialization.XmlSerializer serializer;
+        private bool userIdFieldSpecified;
 
         public SettingsControl()
         {
-            this.upField = "Up";
-            this.downField = "Down";
-            this.leftField = "Left";
-            this.rightField = "Right";
-            this.dropBombField = "Space";
-            this.useBonusField = "Ctrl";
-            this.usePlayerBonusField = "Alt";
+            upField = "Up";
+            downField = "Down";
+            leftField = "Left";
+            rightField = "Right";
+            dropBombField = "Space";
+            useBonusField = "Ctrl";
+            usePlayerBonusField = "Alt";
         }
 
         public ulong UserId
         {
-            get
-            {
-                return this.userIdField;
-            }
-            set
-            {
-                this.userIdField = value;
-            }
+            get { return userIdField; }
+            set { userIdField = value; }
         }
 
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore]
         public bool UserIdSpecified
         {
-            get
-            {
-                return this.userIdFieldSpecified;
-            }
-            set
-            {
-                this.userIdFieldSpecified = value;
-            }
+            get { return userIdFieldSpecified; }
+            set { userIdFieldSpecified = value; }
         }
 
         public string Up
         {
-            get
-            {
-                return this.upField;
-            }
-            set
-            {
-                this.upField = value;
-            }
+            get { return upField; }
+            set { upField = value; }
         }
 
         public string Down
         {
-            get
-            {
-                return this.downField;
-            }
-            set
-            {
-                this.downField = value;
-            }
+            get { return downField; }
+            set { downField = value; }
         }
 
         public string Left
         {
-            get
-            {
-                return this.leftField;
-            }
-            set
-            {
-                this.leftField = value;
-            }
+            get { return leftField; }
+            set { leftField = value; }
         }
 
         public string Right
         {
-            get
-            {
-                return this.rightField;
-            }
-            set
-            {
-                this.rightField = value;
-            }
+            get { return rightField; }
+            set { rightField = value; }
         }
 
         public string DropBomb
         {
-            get
-            {
-                return this.dropBombField;
-            }
-            set
-            {
-                this.dropBombField = value;
-            }
+            get { return dropBombField; }
+            set { dropBombField = value; }
         }
 
         public string UseBonus
         {
-            get
-            {
-                return this.useBonusField;
-            }
-            set
-            {
-                this.useBonusField = value;
-            }
+            get { return useBonusField; }
+            set { useBonusField = value; }
         }
 
         public string UsePlayerBonus
         {
-            get
-            {
-                return this.usePlayerBonusField;
-            }
-            set
-            {
-                this.usePlayerBonusField = value;
-            }
+            get { return usePlayerBonusField; }
+            set { usePlayerBonusField = value; }
         }
 
-        private static System.Xml.Serialization.XmlSerializer Serializer
+        private static XmlSerializer Serializer
         {
             get
             {
                 if ((serializer == null))
                 {
-                    serializer = new System.Xml.Serialization.XmlSerializer(typeof(SettingsControl));
+                    serializer = new XmlSerializer(typeof (SettingsControl));
                 }
                 return serializer;
             }
         }
 
         #region Serialize/Deserialize
+
         /// <summary>
-        /// Serializes current SettingsControl object into an XML document
+        ///     Serializes current SettingsControl object into an XML document
         /// </summary>
         /// <returns>string XML value</returns>
-        public virtual string Serialize(System.Text.Encoding encoding)
+        public virtual string Serialize(Encoding encoding)
         {
-            System.IO.StreamReader streamReader = null;
-            System.IO.MemoryStream memoryStream = null;
+            StreamReader streamReader = null;
+            MemoryStream memoryStream = null;
             try
             {
-                memoryStream = new System.IO.MemoryStream();
-                System.Xml.XmlWriterSettings xmlWriterSettings = new System.Xml.XmlWriterSettings();
+                memoryStream = new MemoryStream();
+                var xmlWriterSettings = new XmlWriterSettings();
                 xmlWriterSettings.Encoding = encoding;
-                System.Xml.XmlWriter xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
+                XmlWriter xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
                 Serializer.Serialize(xmlWriter, this);
-                memoryStream.Seek(0, System.IO.SeekOrigin.Begin);
-                streamReader = new System.IO.StreamReader(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                streamReader = new StreamReader(memoryStream);
                 return streamReader.ReadToEnd();
             }
             finally
@@ -455,13 +389,13 @@ namespace Bombbrothers
         }
 
         /// <summary>
-        /// Deserializes workflow markup into an SettingsControl object
+        ///     Deserializes workflow markup into an SettingsControl object
         /// </summary>
         /// <param name="xml">string workflow markup to deserialize</param>
         /// <param name="obj">Output SettingsControl object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
-        public static bool Deserialize(string xml, out SettingsControl obj, out System.Exception exception)
+        public static bool Deserialize(string xml, out SettingsControl obj, out Exception exception)
         {
             exception = null;
             obj = default(SettingsControl);
@@ -470,7 +404,7 @@ namespace Bombbrothers
                 obj = Deserialize(xml);
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 exception = ex;
                 return false;
@@ -479,17 +413,17 @@ namespace Bombbrothers
 
         public static bool Deserialize(string xml, out SettingsControl obj)
         {
-            System.Exception exception = null;
+            Exception exception = null;
             return Deserialize(xml, out obj, out exception);
         }
 
         public static SettingsControl Deserialize(string xml)
         {
-            System.IO.StringReader stringReader = null;
+            StringReader stringReader = null;
             try
             {
-                stringReader = new System.IO.StringReader(xml);
-                return ((SettingsControl)(Serializer.Deserialize(System.Xml.XmlReader.Create(stringReader))));
+                stringReader = new StringReader(xml);
+                return ((SettingsControl) (Serializer.Deserialize(XmlReader.Create(stringReader))));
             }
             finally
             {
@@ -501,12 +435,12 @@ namespace Bombbrothers
         }
 
         /// <summary>
-        /// Serializes current SettingsControl object into file
+        ///     Serializes current SettingsControl object into file
         /// </summary>
         /// <param name="fileName">full path of outupt xml file</param>
         /// <param name="exception">output Exception value if failed</param>
         /// <returns>true if can serialize and save into file; otherwise, false</returns>
-        public virtual bool SaveToFile(string fileName, System.Text.Encoding encoding, out System.Exception exception)
+        public virtual bool SaveToFile(string fileName, Encoding encoding, out Exception exception)
         {
             exception = null;
             try
@@ -514,14 +448,14 @@ namespace Bombbrothers
                 SaveToFile(fileName, encoding);
                 return true;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 exception = e;
                 return false;
             }
         }
 
-        public virtual bool SaveToFile(string fileName, out System.Exception exception)
+        public virtual bool SaveToFile(string fileName, out Exception exception)
         {
             return SaveToFile(fileName, Encoding.UTF8, out exception);
         }
@@ -531,13 +465,13 @@ namespace Bombbrothers
             SaveToFile(fileName, Encoding.UTF8);
         }
 
-        public virtual void SaveToFile(string fileName, System.Text.Encoding encoding)
+        public virtual void SaveToFile(string fileName, Encoding encoding)
         {
-            System.IO.StreamWriter streamWriter = null;
+            StreamWriter streamWriter = null;
             try
             {
                 string xmlString = Serialize(encoding);
-                streamWriter = new System.IO.StreamWriter(fileName, false, Encoding.UTF8);
+                streamWriter = new StreamWriter(fileName, false, Encoding.UTF8);
                 streamWriter.WriteLine(xmlString);
                 streamWriter.Close();
             }
@@ -551,13 +485,14 @@ namespace Bombbrothers
         }
 
         /// <summary>
-        /// Deserializes xml markup from file into an SettingsControl object
+        ///     Deserializes xml markup from file into an SettingsControl object
         /// </summary>
         /// <param name="fileName">string xml file to load and deserialize</param>
         /// <param name="obj">Output SettingsControl object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
-        public static bool LoadFromFile(string fileName, System.Text.Encoding encoding, out SettingsControl obj, out System.Exception exception)
+        public static bool LoadFromFile(string fileName, Encoding encoding, out SettingsControl obj,
+            out Exception exception)
         {
             exception = null;
             obj = default(SettingsControl);
@@ -566,21 +501,21 @@ namespace Bombbrothers
                 obj = LoadFromFile(fileName, encoding);
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 exception = ex;
                 return false;
             }
         }
 
-        public static bool LoadFromFile(string fileName, out SettingsControl obj, out System.Exception exception)
+        public static bool LoadFromFile(string fileName, out SettingsControl obj, out Exception exception)
         {
             return LoadFromFile(fileName, Encoding.UTF8, out obj, out exception);
         }
 
         public static bool LoadFromFile(string fileName, out SettingsControl obj)
         {
-            System.Exception exception = null;
+            Exception exception = null;
             return LoadFromFile(fileName, out obj, out exception);
         }
 
@@ -589,14 +524,14 @@ namespace Bombbrothers
             return LoadFromFile(fileName, Encoding.UTF8);
         }
 
-        public static SettingsControl LoadFromFile(string fileName, System.Text.Encoding encoding)
+        public static SettingsControl LoadFromFile(string fileName, Encoding encoding)
         {
-            System.IO.FileStream file = null;
-            System.IO.StreamReader sr = null;
+            FileStream file = null;
+            StreamReader sr = null;
             try
             {
-                file = new System.IO.FileStream(fileName, FileMode.Open, FileAccess.Read);
-                sr = new System.IO.StreamReader(file, encoding);
+                file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                sr = new StreamReader(file, encoding);
                 string xmlString = sr.ReadToEnd();
                 sr.Close();
                 file.Close();
@@ -614,16 +549,19 @@ namespace Bombbrothers
                 }
             }
         }
+
         #endregion
 
         #region Clone method
+
         /// <summary>
-        /// Create a clone of this SettingsControl object
+        ///     Create a clone of this SettingsControl object
         /// </summary>
         public virtual SettingsControl Clone()
         {
-            return ((SettingsControl)(this.MemberwiseClone()));
+            return ((SettingsControl) (MemberwiseClone()));
         }
+
         #endregion
     }
 }

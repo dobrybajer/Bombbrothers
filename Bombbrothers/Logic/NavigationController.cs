@@ -1,30 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using Bombbrothers;
+﻿using System.Windows.Controls;
 
 namespace Bombbrothers.Logic
 {
     /// <summary>
-    /// Kontroler nawigujący aktualnie wyświetlaną zawartość okna.
+    ///     Kontroler nawigujący aktualnie wyświetlaną zawartość okna.
     /// </summary>
     public static class NavigationController
     {
         /// <summary>
-        /// Instancja okna - rodzica
+        ///     Instancja okna - rodzica
         /// </summary>
         private static MainWindow _mainWindow;
 
         /// <summary>
-        /// Właściwość ustawiająca okno - rodzica
+        ///     Właściwość ustawiająca okno - rodzica
         /// </summary>
-        public static MainWindow Window { set { _mainWindow = value; } }
+        public static MainWindow Window
+        {
+            set { _mainWindow = value; }
+        }
 
         /// <summary>
-        /// Zmiana zawartośći okna.
+        ///     Zmiana zawartośći okna.
         /// </summary>
         /// <param name="target">Nowa zawartość okna</param>
         public static void NavigateTo(UserControl target)
@@ -33,7 +30,7 @@ namespace Bombbrothers.Logic
         }
 
         /// <summary>
-        /// Zmiana zawartośći okna. Pozwala na przekazanie obiektu między zawartościami okna.
+        ///     Zmiana zawartośći okna. Pozwala na przekazanie obiektu między zawartościami okna.
         /// </summary>
         /// <param name="target">Nowa zawartość okna</param>
         /// <param name="state">Obiekt przekazany do nowej zawartości okna.</param>
@@ -43,7 +40,7 @@ namespace Bombbrothers.Logic
         }
 
         /// <summary>
-        /// Zamknięcie okna głównego aplikacji.
+        ///     Zamknięcie okna głównego aplikacji.
         /// </summary>
         public static void Exit()
         {

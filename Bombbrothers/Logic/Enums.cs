@@ -1,18 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bombbrothers.Logic
+﻿namespace Bombbrothers.Logic
 {
     /// <summary>
-    /// Wyliczenia enum dla róznych typów wykorzystywanych w grze.
+    ///     Wyliczenia enum dla róznych typów wykorzystywanych w grze.
     /// </summary>
     public struct Enums
     {
         /// <summary>
-        /// Poziom trudności: łatwy, średni, trudny
+        ///     Typ bonusu: guma do żucia, adidasy, książka, biedronka, kalkulator, inkantacja, zapalniczka, spirytus, zdjęcie
+        ///     Barbary
+        /// </summary>
+        public enum BonusType
+        {
+            ChewingGum,
+            Adidases,
+            Book,
+            Ladybird,
+            Calc,
+            Incantation,
+            Lighter,
+            Spirit,
+            BarbarasPhoto
+        }
+
+        /// <summary>
+        ///     Typ wroga: human, biochem, matfiz, emo, woźny
+        /// </summary>
+        public enum EnemyType
+        {
+            Human,
+            Biochem,
+            Matphys,
+            Emo,
+            Janitor
+        }
+
+        /// <summary>
+        ///     Poziom trudności: łatwy, średni, trudny
         /// </summary>
         public enum LevelDifficulty
         {
@@ -22,17 +45,7 @@ namespace Bombbrothers.Logic
         }
 
         /// <summary>
-        /// Typ gracza: nieśmiały, szybki, zręczny
-        /// </summary>
-        public enum PlayerType
-        {
-            Shy,
-            Fast, 
-            Agile 
-        }
-
-        /// <summary>
-        /// Bonus gracza: niewidzialność, dwie bomby naraz, żaden
+        ///     Bonus gracza: niewidzialność, dwie bomby naraz, żaden
         /// </summary>
         public enum PlayerBonus
         {
@@ -42,43 +55,24 @@ namespace Bombbrothers.Logic
         }
 
         /// <summary>
-        /// Typ wroga: human, biochem, matfiz, emo, woźny
+        ///     Typ gracza: nieśmiały, szybki, zręczny
         /// </summary>
-        public enum EnemyType
+        public enum PlayerType
         {
-            Human,
-            Biochem,
-            Matphys, 
-            Emo,
-            Janitor
+            Shy,
+            Fast,
+            Agile
         }
 
         /// <summary>
-        /// Typ bonusu: guma do żucia, adidasy, książka, biedronka, kalkulator, inkantacja, zapalniczka, spirytus, zdjęcie Barbary
-        /// </summary>
-        public enum BonusType
-        {
-            ChewingGum,
-            Adidases,
-            Book, 
-            Ladybird,
-            Calc,
-            Incantation,
-            Lighter, 
-            Spirit,
-            BarbarasPhoto
-        }
-
-        /// <summary>
-        /// Typ kafelka: element nośny, płyta gipsowa, ławka, inny - tło
+        ///     Typ kafelka: element nośny, płyta gipsowa, ławka, inny - tło
         /// </summary>
         public enum TileType
         {
-            Block, 
-            Gypsum, 
+            Block,
+            Gypsum,
             Bench,
             Other
         }
     }
-    
 }

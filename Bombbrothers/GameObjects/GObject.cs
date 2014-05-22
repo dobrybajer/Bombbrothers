@@ -1,157 +1,92 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Bombbrothers.Additional;
-using Point = System.Windows.Point;
-using LevelDifficulty = Bombbrothers.Logic.Enums.LevelDifficulty;
-using System.Windows.Media.Imaging;
-using System.Linq.Expressions;
-using System.Windows.Threading;
-using System.Windows.Media.Animation;
-using System.Timers;
+using Bombbrothers.Logic;
 
 namespace Bombbrothers.GameObjects
 {
     /// <summary>
-    /// Abstrakcyjna klasa bazowa GObject dla wszystkich obiektów w grze. Dziedziczy po abstrakcyjnej klasie Shape oraz implementuje interfejs INotifyPropertyChanged.
+    ///     Abstrakcyjna klasa bazowa GObject dla wszystkich obiektów w grze. Dziedziczy po abstrakcyjnej klasie Shape oraz
+    ///     implementuje interfejs INotifyPropertyChanged.
     /// </summary>
     public abstract class GObject : Shape, INotifyPropertyChanged
     {
         /// <summary>
-        /// Wartość int reprezentująca typ 'ławka'.
+        ///     Wartość int reprezentująca typ 'ławka'.
         /// </summary>
         protected const int Bench = GameConst.TypeBench;
 
         /// <summary>
-        /// Wartość int reprezentująca typ 'płyta gipsowa'.
+        ///     Wartość int reprezentująca typ 'płyta gipsowa'.
         /// </summary>
         protected const int Gypsum = GameConst.TypeGypsum;
 
         /// <summary>
-        /// Wartość int reprezentująca typ 'tło'.
+        ///     Wartość int reprezentująca typ 'tło'.
         /// </summary>
         protected const int Background = GameConst.TypeBackground;
 
         /// <summary>
-        /// Wartość int reprezentująca typ 'element nośny'.
+        ///     Wartość int reprezentująca typ 'element nośny'.
         /// </summary>
         protected const int Block = GameConst.TypeBlock;
 
         /// <summary>
-        /// Wartość int reprezentująca rozmiar obiektu Tile.
+        ///     Wartość int reprezentująca rozmiar obiektu Tile.
         /// </summary>
         protected const int TileSize = GameConst.TileSize;
 
         /// <summary>
-        /// Wartość int reprezentująca rozmiar obiektu gracza lub wroga.
+        ///     Wartość int reprezentująca rozmiar obiektu gracza lub wroga.
         /// </summary>
         protected const int ObjectSize = GameConst.ObjectSize;
 
         /// <summary>
-        /// Wartość bajtowa odpowiadająca kierunkowi: prawo.
+        ///     Wartość bajtowa odpowiadająca kierunkowi: prawo.
         /// </summary>
         protected const byte Right = GameConst.Right;
 
         /// <summary>
-        /// Wartość bajtowa odpowiadająca kierunkowi: dół.
+        ///     Wartość bajtowa odpowiadająca kierunkowi: dół.
         /// </summary>
         protected const byte Down = GameConst.Down;
 
         /// <summary>
-        /// Wartość bajtowa odpowiadająca kierunkowi: lewo.
+        ///     Wartość bajtowa odpowiadająca kierunkowi: lewo.
         /// </summary>
         protected const byte Left = GameConst.Left;
 
         /// <summary>
-        /// Wartość bajtowa odpowiadająca kierunkowi: góra.
+        ///     Wartość bajtowa odpowiadająca kierunkowi: góra.
         /// </summary>
         protected const byte Up = GameConst.Up;
 
-        private double _posX;
         /// <summary>
-        /// Położenie X obiektu w aktualnym canvas'ie. Wywołuje OnPropertyChanged przy zmianie wartości.
-        /// </summary>
-        public double X
-        {
-            get
-            {
-                return _posX;
-            }
-            set
-            {
-                _posX = value;
-                OnPropertyChanged("X");
-            }
-        }
-
-        private double _posY;
-        /// <summary>
-        /// Położenie Y obiektu w aktualnym canvas'ie. Wywołuje OnPropertyChanged przy zmianie wartości.
-        /// </summary>
-        public double Y
-        {
-            get
-            {
-                return _posY;
-            }
-            set
-            {
-                _posY = value;
-                //SetField(ref _posY, value, () => Y);
-                OnPropertyChanged("Y");
-            }
-        }
-
-        /// <summary>
-        /// Położenie obiektu w kolumnie/ach aktualnej planszy.
+        ///     Położenie obiektu w kolumnie/ach aktualnej planszy.
         /// </summary>
         protected List<int> ActualColumns;
 
         /// <summary>
-        /// Położenie obiektu w wierszu/ach aktualnej planszy.
+        ///     Położenie obiektu w wierszu/ach aktualnej planszy.
         /// </summary>
         protected List<int> ActualRows;
 
         /// <summary>
-        /// Poziom trudności gry wybrany przez użytkownika.
+        ///     Poziom trudności gry wybrany przez użytkownika.
         /// </summary>
-        protected LevelDifficulty Difficulty;      
+        protected Enums.LevelDifficulty Difficulty;
+
+        private double _posX;
+        private double _posY;
 
         /// <summary>
-        /// Uruchamia pętlę gry dla obiektu.
-        /// </summary>
-        protected void StartTimer()
-        {
-            CompositionTarget.Rendering += ObjectLoop;
-        }
-
-        /// <summary>
-        /// Zatrzymuje pętlę gry dla obiektu.
-        /// </summary>
-        protected void StopTimer()
-        {
-            CompositionTarget.Rendering -= ObjectLoop;
-        }
-
-        /// <summary>
-        /// Metoda używana przez pętlę gry obiektu.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected virtual void ObjectLoop(object sender, EventArgs e)
-        {
-            Draw();
-        }
-
-        /// <summary>
-        /// Konstruktor.
+        ///     Konstruktor.
         /// </summary>
         protected GObject()
         {
@@ -163,74 +98,46 @@ namespace Bombbrothers.GameObjects
         }
 
         /// <summary>
-        /// Tworzy ImageBrush z podanego źródła typu string.
+        ///     Położenie X obiektu w aktualnym canvas'ie. Wywołuje OnPropertyChanged przy zmianie wartości.
         /// </summary>
-        /// <param name="source">Źródło bitmapy.</param>
-        /// <returns></returns>
-        protected ImageBrush CreateImageBrush(string source)
+        public double X
         {
-            BitmapImage bi = new BitmapImage();
-            bi.BeginInit();
-            bi.UriSource = new Uri(source, UriKind.RelativeOrAbsolute);
-            bi.EndInit();
-            return new ImageBrush(bi);
+            get { return _posX; }
+            set
+            {
+                _posX = value;
+                OnPropertyChanged("X");
+            }
         }
 
         /// <summary>
-        /// Sprawdza czy dane współrzędne są położone w środku prostokąta danego obiektu. Wersja do kolizji gracza z wrogiem.
+        ///     Położenie Y obiektu w aktualnym canvas'ie. Wywołuje OnPropertyChanged przy zmianie wartości.
         /// </summary>
-        /// <param name="x">Współrzędna x.</param>
-        /// <param name="y">Współrzędna y.</param>
-        /// <returns></returns>
-        protected bool IsInRange(double x, double y)
+        public double Y
         {
-            if (x >= X && (x <= X + ObjectSize) && (y <= Y + ObjectSize) && y >= Y)
-                return true;
-            else
-                return false;
+            get { return _posY; }
+            set
+            {
+                _posY = value;
+                OnPropertyChanged("Y");
+            }
         }
 
         /// <summary>
-        /// Sprawdza czy dane współrzędne są położone w środku prostokąta danego obiektu. Wersja do kolizji z bombą.
+        ///     Implementacja klasy bazowej Shape.
         /// </summary>
-        /// <param name="x">Współrzędna x.</param>
-        /// <param name="y">Współrzędna y.</param>
-        /// <returns></returns>
-        protected bool IsInRange2(double x, double y)
-        {
-            double xn = x * TileSize;
-            double yn = y * TileSize;
-            if (X >= xn && (X <= xn + TileSize) && (Y <= yn + TileSize) && Y >= yn)
-                return true;
-            else
-                return false;
-        }
-
-        /// <summary>
-        /// Wyświetla obiekt w aktualnym canvas'ie.
-        /// </summary>
-        public virtual void Draw()
-        {
-            Canvas.SetLeft(this, X);
-            Canvas.SetTop(this, Y);
-        }
-
-        /// <summary>
-        /// Implementacja klasy bazowej Shape.
-        /// </summary>
-        protected override System.Windows.Media.Geometry DefiningGeometry
+        protected override Geometry DefiningGeometry
         {
             get
             {
-                StreamGeometry geometry = new StreamGeometry();
-                geometry.FillRule = FillRule.EvenOdd;
+                var geometry = new StreamGeometry {FillRule = FillRule.EvenOdd};
 
-                using (StreamGeometryContext context = geometry.Open())
+                using (var context = geometry.Open())
                 {
-                    Point pt1 = new Point(0, 0);
-                    Point pt2 = new Point(0, Height);
-                    Point pt3 = new Point(Width, 0);
-                    Point pt4 = new Point(Width, Height);
+                    var pt1 = new Point(0, 0);
+                    var pt2 = new Point(0, Height);
+                    var pt3 = new Point(Width, 0);
+                    var pt4 = new Point(Width, Height);
 
                     context.BeginFigure(pt1, true, false);
                     context.LineTo(pt2, true, true);
@@ -245,15 +152,91 @@ namespace Bombbrothers.GameObjects
             }
         }
 
+        /// <summary>
+        /// Uchwyt do zdarzenia PropertyChanged.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Implementacja interfejsu INotifyPropertyChanged
+        ///     Uruchamia pętlę gry dla obiektu.
+        /// </summary>
+        protected void StartTimer()
+        {
+            CompositionTarget.Rendering += ObjectLoop;
+        }
+
+        /// <summary>
+        ///     Zatrzymuje pętlę gry dla obiektu.
+        /// </summary>
+        protected void StopTimer()
+        {
+            CompositionTarget.Rendering -= ObjectLoop;
+        }
+
+        /// <summary>
+        ///     Metoda używana przez pętlę gry obiektu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected virtual void ObjectLoop(object sender, EventArgs e)
+        {
+            Draw();
+        }
+
+        /// <summary>
+        ///     Tworzy ImageBrush z podanego źródła typu string.
+        /// </summary>
+        /// <param name="source">Źródło bitmapy.</param>
+        /// <returns></returns>
+        protected ImageBrush CreateImageBrush(string source)
+        {
+            var bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(source, UriKind.RelativeOrAbsolute);
+            bi.EndInit();
+            return new ImageBrush(bi);
+        }
+
+        /// <summary>
+        ///     Sprawdza czy dane współrzędne są położone w środku prostokąta danego obiektu. Wersja do kolizji gracza z wrogiem.
+        /// </summary>
+        /// <param name="x">Współrzędna x.</param>
+        /// <param name="y">Współrzędna y.</param>
+        /// <returns></returns>
+        protected bool IsInRange(double x, double y)
+        {
+            return x >= X && (x <= X + ObjectSize) && (y <= Y + ObjectSize) && y >= Y;
+        }
+
+        /// <summary>
+        ///     Sprawdza czy dane współrzędne są położone w środku prostokąta danego obiektu. Wersja do kolizji z bombą.
+        /// </summary>
+        /// <param name="x">Współrzędna x.</param>
+        /// <param name="y">Współrzędna y.</param>
+        /// <returns></returns>
+        protected bool IsInRange2(double x, double y)
+        {
+            var xn = x*TileSize;
+            var yn = y*TileSize;
+            return X >= xn && (X <= xn + TileSize) && (Y <= yn + TileSize) && Y >= yn;
+        }
+
+        /// <summary>
+        ///     Wyświetla obiekt w aktualnym canvas'ie.
+        /// </summary>
+        public virtual void Draw()
+        {
+            Canvas.SetLeft(this, X);
+            Canvas.SetTop(this, Y);
+        }
+
+        /// <summary>
+        ///     Implementacja interfejsu INotifyPropertyChanged
         /// </summary>
         /// <param name="name"></param>
         protected void OnPropertyChanged(string name)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            var handler = PropertyChanged;
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(name));
@@ -261,20 +244,20 @@ namespace Bombbrothers.GameObjects
         }
 
         /// <summary>
-        /// Sprawdza kolizję obiektu wywołującego tą metodą z bombą.
+        ///     Sprawdza kolizję obiektu wywołującego tą metodą z bombą.
         /// </summary>
         /// <param name="func">Funkcja podana przez obiekt wywołujący.</param>
-        /// <param name="FiringRange">Zasięg rażenia bomby.</param>
-        protected void CheckForBombCollision(Func<List<int>, int> func, int FiringRange)
+        /// <param name="firingRange">Zasięg rażenia bomby.</param>
+        protected void CheckForBombCollision(Func<List<int>, int> func, int firingRange)
         {
-            int x = (int)GameParameters.ActualBomb.X / TileSize;
-            int y = (int)GameParameters.ActualBomb.Y / TileSize;
-            int count = 0;
-            int type = 0;
+            var x = (int) GameParameters.ActualBomb.X/TileSize;
+            var y = (int) GameParameters.ActualBomb.Y/TileSize;
+            var count = 0;
+            var type = 0;
 
-            while (count <= FiringRange && type != Block)
+            while (count <= firingRange && type != Block)
             {
-                if (func(new List<int>() { type, y, x - count }) == 0)
+                if (func(new List<int> {type, y, x - count}) == 0)
                     return;
 
                 count++;
@@ -287,9 +270,9 @@ namespace Bombbrothers.GameObjects
 
             count = 0;
             type = 0;
-            while (count <= FiringRange && type != Block)
+            while (count <= firingRange && type != Block)
             {
-                if (func(new List<int>() { type, y, x + count }) == 0)
+                if (func(new List<int> {type, y, x + count}) == 0)
                     return;
 
                 count++;
@@ -302,9 +285,9 @@ namespace Bombbrothers.GameObjects
 
             count = 0;
             type = 0;
-            while (count <= FiringRange && type != Block)
+            while (count <= firingRange && type != Block)
             {
-                if (func(new List<int>() { type, y - count, x}) == 0)
+                if (func(new List<int> {type, y - count, x}) == 0)
                     return;
 
                 count++;
@@ -317,9 +300,9 @@ namespace Bombbrothers.GameObjects
 
             count = 0;
             type = 0;
-            while (count <= FiringRange && type != Block)
+            while (count <= firingRange && type != Block)
             {
-                if (func(new List<int>() { type, y + count, x }) == 0)
+                if (func(new List<int> {type, y + count, x}) == 0)
                     return;
 
                 count++;

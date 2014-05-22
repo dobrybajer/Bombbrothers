@@ -1,27 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BonusType = Bombbrothers.Logic.Enums.BonusType;
+using Bombbrothers.Logic;
 
 namespace Bombbrothers.GameObjects.Bonuses
 {
     /// <summary>
-    /// Klasa reprezentująca bonus 'Zdjęcie Barbary'. Dziedziczy po abstrakcyjnej klasie Bonus. (Nie zaimplementowano)
+    ///     Klasa reprezentująca bonus 'Zdjęcie Barbary'. Dziedziczy po abstrakcyjnej klasie Bonus. (Nie zaimplementowano)
     /// </summary>
-    class BarbarasPhoto : Bonus
+    internal class BarbarasPhoto : Bonus
     {
         /// <summary>
-        /// Konstruktor
+        ///     Konstruktor
         /// </summary>
-        public BarbarasPhoto() : base(BonusType.BarbarasPhoto)
+        public BarbarasPhoto() : base(Enums.BonusType.BarbarasPhoto)
         {
-
         }
 
         /// <summary>
-        /// Metoda wykonująca akcję danego bonusu.
+        ///     Metoda wykonująca akcję danego bonusu.
         /// </summary>
         public override void Action()
         {

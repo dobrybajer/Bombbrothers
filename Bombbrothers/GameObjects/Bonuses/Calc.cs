@@ -1,27 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BonusType = Bombbrothers.Logic.Enums.BonusType;
+using Bombbrothers.Logic;
 
 namespace Bombbrothers.GameObjects.Bonuses
 {
     /// <summary>
-    /// Klasa reprezentująca bonus 'Kalkulator'. Dziedziczy po abstrakcyjnej klasie Bonus. (Nie zaimplementowano)
+    ///     Klasa reprezentująca bonus 'Kalkulator'. Dziedziczy po abstrakcyjnej klasie Bonus. (Nie zaimplementowano)
     /// </summary>
-    class Calc : Bonus
+    internal class Calc : Bonus
     {
         /// <summary>
-        /// Konstruktor
+        ///     Konstruktor
         /// </summary>
-        public Calc() : base(BonusType.Calc)
+        public Calc() : base(Enums.BonusType.Calc)
         {
-            
         }
 
         /// <summary>
-        /// Metoda wykonująca akcję danego bonusu.
+        ///     Metoda wykonująca akcję danego bonusu.
         /// </summary>
         public override void Action()
         {

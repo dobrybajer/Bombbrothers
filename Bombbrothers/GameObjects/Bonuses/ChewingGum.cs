@@ -1,27 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BonusType = Bombbrothers.Logic.Enums.BonusType;
+using Bombbrothers.Logic;
 
 namespace Bombbrothers.GameObjects.Bonuses
 {
     /// <summary>
-    /// Klasa reprezentująca bonus 'Guma do żucia'. Dziedziczy po abstrakcyjnej klasie Bonus. (Nie zaimplementowano)
+    ///     Klasa reprezentująca bonus 'Guma do żucia'. Dziedziczy po abstrakcyjnej klasie Bonus. (Nie zaimplementowano)
     /// </summary>
-    class ChewingGum : Bonus
+    internal class ChewingGum : Bonus
     {
         /// <summary>
-        /// Konstruktor
+        ///     Konstruktor
         /// </summary>
-        public ChewingGum() : base(BonusType.ChewingGum)
+        public ChewingGum() : base(Enums.BonusType.ChewingGum)
         {
-
         }
 
         /// <summary>
-        /// Metoda wykonująca akcję danego bonusu.
+        ///     Metoda wykonująca akcję danego bonusu.
         /// </summary>
         public override void Action()
         {

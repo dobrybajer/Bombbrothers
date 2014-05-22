@@ -1,69 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bombbrothers.Logic;
 using Bombbrothers.Additional;
-using LevelDifficulty = Bombbrothers.Logic.Enums.LevelDifficulty;
-using System.Windows;
-using Bombbrothers.GameObjects.Players;
-using System.Windows.Threading;
-using System.Timers;
+using Bombbrothers.Logic;
 
 namespace Bombbrothers.GameObjects.Enemies
 {
     /// <summary>
-    /// Abstrakcyjna klasa reprezentująca wroga. Dziedziczy po klasie GObject.
+    ///     Abstrakcyjna klasa reprezentująca wroga. Dziedziczy po klasie GObject.
     /// </summary>
     public abstract class Enemy : GObject
     {
         /// <summary>
-        /// Ilość żyć pozostałych wrogowi.
+        ///     Kierunek ruchu wroga (początkowo - prawo). Używane do poruszania się wroga.
         /// </summary>
-        protected int RemainingLifes;
+        private byte _direction = Right;
 
         /// <summary>
-        /// Szybkość wroga.
+        ///     Numer identyfikujący wroga.
         /// </summary>
-        protected double Speed;
+        protected int Id;
 
         /// <summary>
-        /// Typ wroga.
-        /// </summary>
-        protected Enums.EnemyType Type;
-
-        /// <summary>
-        /// Kierunek ruchu wroga (początkowo - prawo). Używane do poruszania się wroga.
-        /// </summary>
-        private byte Direction = Right;
-
-        /// <summary>
-        /// Numer identyfikujący wroga.
-        /// </summary>
-        protected int ID;
-
-        /// <summary>
-        /// pole informujące o tym czy wróg żyje czy nie.
+        ///     pole informujące o tym czy wróg żyje czy nie.
         /// </summary>
         public bool IsDead;
 
         /// <summary>
-        /// Zdarzenie wykonywane po zniszczeniu wroga.
+        ///     Ilość żyć pozostałych wrogowi.
         /// </summary>
-        public event EventHandler EnemyDown;
+        protected int RemainingLifes;
 
         /// <summary>
-        /// Konstruktor
+        ///     Szybkość wroga.
+        /// </summary>
+        protected double Speed;
+
+        /// <summary>
+        ///     Typ wroga.
+        /// </summary>
+        protected Enums.EnemyType Type;
+
+        /// <summary>
+        ///     Konstruktor
         /// </summary>
         /// <param name="type">Typ enum wroga.</param>
-        protected Enemy(Enums.EnemyType type) : base()
+        protected Enemy(Enums.EnemyType type)
         {
-            ID = GameParameters.ID++;
+            Id = GameParameters.Id++;
             IsDead = false;
             Type = type;
 
-            switch(type)
+            switch (type)
             {
                 case Enums.EnemyType.Biochem:
                     Speed = GameConst.EnemySpeed;
@@ -98,41 +85,44 @@ namespace Bombbrothers.GameObjects.Enemies
         }
 
         /// <summary>
-        /// Metoda wywoływana po utworzeniu obiektu typu Bomb, który jest tworzony podczas tworzenia obiektu typu Player. Obsługuje zdarzenie wybuchu bomby.
+        ///     Zdarzenie wykonywane po zniszczeniu wroga.
+        /// </summary>
+        public event EventHandler EnemyDown;
+
+        /// <summary>
+        ///     Metoda wywoływana po utworzeniu obiektu typu Bomb, który jest tworzony podczas tworzenia obiektu typu Player.
+        ///     Obsługuje zdarzenie wybuchu bomby.
         /// </summary>
         public void PostInitialize()
         {
-            GameParameters.ActualBomb.BombBoom += new EventHandler(Boom);
+            GameParameters.ActualBomb.BombBoom += Boom;
         }
 
         /// <summary>
-        /// Pętla gry dla wroga. Wykonuje ruch, uaktualnia status oraz rysuje w każdej klatce.
+        ///     Pętla gry dla wroga. Wykonuje ruch, uaktualnia status oraz rysuje w każdej klatce.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected override void ObjectLoop(object sender, EventArgs e)
         {
-            base.ObjectLoop(sender, e);         
-            byte moves = GameParameters.ActualBoard.GetValidMoves(ActualRows, ActualColumns);
+            base.ObjectLoop(sender, e);
+            var moves = GameParameters.ActualBoard.GetValidMoves(ActualRows, ActualColumns);
             Move(moves);
             Update();
-          
         }
 
         /// <summary>
-        /// Ustawia wroga w losowej (dostępnej) pozycji na planszy.
+        ///     Ustawia wroga w losowej (dostępnej) pozycji na planszy.
         /// </summary>
         private void SetRandomPosition()
         {
-            int i = 0;
+            var i = StaticRandom.Rand.Next()%GameParameters.EmptyTiles.Count;
 
-            i = StaticRandom.rand.Next() % GameParameters.EmptyTiles.Count;
+            var row = GameParameters.EmptyTiles[i].Item1;
+            var column = GameParameters.EmptyTiles[i].Item2;
 
-            int row = GameParameters.EmptyTiles[i].Item1;
-            int column = GameParameters.EmptyTiles[i].Item2;
-
-            X = TileSize * column;
-            Y = TileSize * row;
+            X = TileSize*column;
+            Y = TileSize*row;
 
             ActualRows.Add(row);
             ActualColumns.Add(column);
@@ -140,7 +130,7 @@ namespace Bombbrothers.GameObjects.Enemies
         }
 
         /// <summary>
-        /// Wykonuje ruch wroga biorąc pod uwagę dostępne aktualnie ruchy.
+        ///     Wykonuje ruch wroga biorąc pod uwagę dostępne aktualnie ruchy.
         /// </summary>
         /// <param name="moves">Dostępne aktualnie kierunki ruchów.</param>
         protected virtual void Move(byte moves)
@@ -151,8 +141,8 @@ namespace Bombbrothers.GameObjects.Enemies
             if (ActualColumns.Count != 0)
                 ActualColumns.Clear();
 
-            if ((moves & Direction) == Direction)
-                switch (Direction)
+            if ((moves & _direction) == _direction)
+                switch (_direction)
                 {
                     case Right:
                         if ((moves & Right) == Right)
@@ -178,48 +168,44 @@ namespace Bombbrothers.GameObjects.Enemies
                             Y += 1;
                         }
                         break;
-                    default:
-                        break;
                 }
             else
             {
-                int direction = StaticRandom.rand.Next() % 4;
+                var direction = StaticRandom.Rand.Next()%4;
                 switch (direction)
                 {
                     case 0:
-                        Direction = Right;
+                        _direction = Right;
                         break;
                     case 1:
-                        Direction = Left;
+                        _direction = Left;
                         break;
                     case 2:
-                        Direction = Up;
+                        _direction = Up;
                         break;
                     case 3:
-                        Direction = Down;
-                        break;
-                    default:
+                        _direction = Down;
                         break;
                 }
             }
 
-            ActualRows.Add((int)(Y / TileSize));
-            if ((int)((Y + ObjectSize) / TileSize) != ActualRows.FirstOrDefault())
-                ActualRows.Add((int)((Y + ObjectSize) / TileSize));
+            ActualRows.Add((int) (Y/TileSize));
+            if ((int) ((Y + ObjectSize)/TileSize) != ActualRows.FirstOrDefault())
+                ActualRows.Add((int) ((Y + ObjectSize)/TileSize));
 
-            ActualColumns.Add((int)(X / TileSize));
-            if ((int)((X + ObjectSize) / TileSize) != ActualColumns.FirstOrDefault())
-                ActualColumns.Add((int)((X + ObjectSize) / TileSize));
+            ActualColumns.Add((int) (X/TileSize));
+            if ((int) ((X + ObjectSize)/TileSize) != ActualColumns.FirstOrDefault())
+                ActualColumns.Add((int) ((X + ObjectSize)/TileSize));
         }
 
         /// <summary>
-        /// Sprawdza czy wróg nie był w zasięgu rażenia bomby. Jeśli tak - zmmniejsza licznik żyć wroga.
+        ///     Sprawdza czy wróg nie był w zasięgu rażenia bomby. Jeśli tak - zmmniejsza licznik żyć wroga.
         /// </summary>
         private void CheckBombCollision()
         {
             CheckForBombCollision(x =>
             {
-                if (IsInRange2((double)x[1], (double)x[2]))
+                if (IsInRange2(x[1], x[2]))
                 {
                     Die();
                     return 0;
@@ -230,7 +216,7 @@ namespace Bombbrothers.GameObjects.Enemies
         }
 
         /// <summary>
-        /// Metoda wywoływana po otrzymaniu zdarzenia wybuchu bomby.
+        ///     Metoda wywoływana po otrzymaniu zdarzenia wybuchu bomby.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -240,37 +226,35 @@ namespace Bombbrothers.GameObjects.Enemies
         }
 
         /// <summary>
-        /// Uaktualnia statyczną klasę GameParameters nowymi informacjami o wrogu.
+        ///     Uaktualnia statyczną klasę GameParameters nowymi informacjami o wrogu.
         /// </summary>
         protected void Update()
         {
-            int ind = GameParameters.Enemies.FindIndex(x => x.ID == ID);
+            var ind = GameParameters.Enemies.FindIndex(x => x.Id == Id);
             GameParameters.Enemies[ind] = this;
         }
 
         /// <summary>
-        /// Metoda wywoływana po kontakcie wroga z bombą.
+        ///     Metoda wywoływana po kontakcie wroga z bombą.
         /// </summary>
         public void Die()
         {
             RemainingLifes -= 1;
-            if (RemainingLifes == 0)
-            {
-                if (this.EnemyDown != null)
-                    this.EnemyDown(this, new EventArgs());
+            if (RemainingLifes != 0) return;
+            if (EnemyDown != null)
+                EnemyDown(this, new EventArgs());
 
-                StopTimer();
-                IsDead = true;
-                GameParameters.ActualCanvas.Children.Remove(this);
-            }
+            StopTimer();
+            IsDead = true;
+            GameParameters.ActualCanvas.Children.Remove(this);
         }
     }
 
     /// <summary>
-    /// Statyczna klasa reprezentująca generator liczb losowych do ustawiania obiektów typu Enemy w losowych pozycjach.
+    ///     Statyczna klasa reprezentująca generator liczb losowych do ustawiania obiektów typu Enemy w losowych pozycjach.
     /// </summary>
-    static class StaticRandom
+    internal static class StaticRandom
     {
-        static public Random rand = new Random();
+        public static Random Rand = new Random();
     }
 }

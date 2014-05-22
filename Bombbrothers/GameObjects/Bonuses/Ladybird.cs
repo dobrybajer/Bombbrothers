@@ -1,27 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BonusType = Bombbrothers.Logic.Enums.BonusType;
+using Bombbrothers.Logic;
 
 namespace Bombbrothers.GameObjects.Bonuses
 {
     /// <summary>
-    /// Klasa reprezentująca bonus 'Biedronka'. Dziedziczy po abstrakcyjnej klasie Bonus. (Nie zaimplementowano)
+    ///     Klasa reprezentująca bonus 'Biedronka'. Dziedziczy po abstrakcyjnej klasie Bonus. (Nie zaimplementowano)
     /// </summary>
-    class Ladybird : Bonus
+    internal class Ladybird : Bonus
     {
         /// <summary>
-        /// Konstruktor
+        ///     Konstruktor
         /// </summary>
-        public Ladybird() : base(BonusType.Ladybird)
+        public Ladybird() : base(Enums.BonusType.Ladybird)
         {
-
         }
 
         /// <summary>
-        /// Metoda wykonująca akcję danego bonusu.
+        ///     Metoda wykonująca akcję danego bonusu.
         /// </summary>
         public override void Action()
         {

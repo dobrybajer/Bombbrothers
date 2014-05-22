@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <xs:schema id="Users"
-    targetNamespace="http://www.mini.pw.edu.pl/pi/"
-    elementFormDefault="qualified"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
->
+           targetNamespace="http://www.mini.pw.edu.pl/pi/"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="Users">
     <xs:complexType>
       <xs:sequence>
@@ -15,13 +15,13 @@
                   <xs:sequence>
                     <xs:element minOccurs="0" name="Id" type="xs:unsignedLong" />
                     <xs:element name="Name" type="xs:string" />
-                    <xs:element name="Password" type="xs:base64Binary"/>
+                    <xs:element name="Password" type="xs:base64Binary" />
                   </xs:sequence>
                 </xs:complexType>
-              </xs:element> 
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
-        </xs:element> 
+        </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -1,44 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BonusType = Bombbrothers.Logic.Enums.BonusType;
+﻿using Bombbrothers.Logic;
 
 namespace Bombbrothers.GameObjects.Bonuses
 {
     /// <summary>
-    /// Abstrakcyjna klasa bonus. Dziedziczy po abstrakcyjnej klasie GObject. (Nie zaimplementowano)
+    ///     Abstrakcyjna klasa bonus. Dziedziczy po abstrakcyjnej klasie GObject. (Nie zaimplementowano)
     /// </summary>
-    abstract class Bonus : GObject
+    internal abstract class Bonus : GObject
     {
         /// <summary>
-        /// Maksymalna ilość wystąpień danego bonusu na danym poziomie gry.
-        /// </summary>
-        protected int MaxNumberOfOccurrences;
-
-        /// <summary>
-        /// Szansa wystąpienia danego bonusu na danym poziomie gry.
+        ///     Szansa wystąpienia danego bonusu na danym poziomie gry.
         /// </summary>
         protected float ChanceOfOccurrence;
 
         /// <summary>
-        /// Typ enum bonusu.
+        ///     Maksymalna ilość wystąpień danego bonusu na danym poziomie gry.
         /// </summary>
-        protected BonusType Type;
+        protected int MaxNumberOfOccurrences;
 
         /// <summary>
-        /// Konstruktor
+        ///     Typ enum bonusu.
         /// </summary>
-        public Bonus(BonusType type) : base()
+        protected Enums.BonusType Type;
+
+        /// <summary>
+        ///     Konstruktor
+        /// </summary>
+        protected Bonus(Enums.BonusType type)
         {
             Type = type;
         }
 
         /// <summary>
-        /// Abstrakcyjna metoda wykonująca akcję danego bonusu.
+        ///     Abstrakcyjna metoda wykonująca akcję danego bonusu.
         /// </summary>
         public abstract void Action();
-
     }
 }

@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PlayerType = Bombbrothers.Logic.Enums.PlayerType;
-using LevelDifficulty = Bombbrothers.Logic.Enums.LevelDifficulty;
+﻿using Bombbrothers.Logic;
 
 namespace Bombbrothers.GameObjects.Players
 {
     /// <summary>
-    /// Klasa reprezentująca typ gracza - szybki. Dziedziczy po abstrakcyjnej klasie Player.
+    ///     Klasa reprezentująca typ gracza - szybki. Dziedziczy po abstrakcyjnej klasie Player.
     /// </summary>
-    class FastBro : Player
+    internal class FastBro : Player
     {
         /// <summary>
-        /// Konstruktor. Wywołuje konstruktor bazowy.
+        ///     Konstruktor. Wywołuje konstruktor bazowy.
         /// </summary>
-        public FastBro() : base(PlayerType.Fast)
+        public FastBro() : base(Enums.PlayerType.Fast)
         {
-            
         }
     }
 }

@@ -1,51 +1,51 @@
 ﻿<UserControl x:Class="Bombbrothers.Interface.Screens.Settings"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Content="Akcja"/>
-        <Label Grid.Row="1" Content="Poruszanie w górę"/>
-        <Label Grid.Row="2" Content="Poruszanie w dół"/>
-        <Label Grid.Row="3" Content="Poruszanie w lewo"/>
-        <Label Grid.Row="4" Content="Poruszanie w prawo"/>
-        <Label Grid.Row="5" Content="Podkładanie bomby"/>
-        <Label Grid.Row="6" Content="Użycie bonusu"/>
-        <Label Grid.Row="7" Content="Użycie bonusu postaci"/>
-        <Label Grid.Row="8" Content="Pauza"/>
-        <Label Grid.Row="9" Content="Zapis"/>
-        <Label Grid.Row="10" Content="Powrót do menu głównego"/>
-        <Label Grid.Column="1" Grid.Row="0" Content="Klawisz"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Name="t1" KeyDown="text_KeyDown"/>
+        <Label Grid.Row="0" Content="Akcja" />
+        <Label Grid.Row="1" Content="Poruszanie w górę" />
+        <Label Grid.Row="2" Content="Poruszanie w dół" />
+        <Label Grid.Row="3" Content="Poruszanie w lewo" />
+        <Label Grid.Row="4" Content="Poruszanie w prawo" />
+        <Label Grid.Row="5" Content="Podkładanie bomby" />
+        <Label Grid.Row="6" Content="Użycie bonusu" />
+        <Label Grid.Row="7" Content="Użycie bonusu postaci" />
+        <Label Grid.Row="8" Content="Pauza" />
+        <Label Grid.Row="9" Content="Zapis" />
+        <Label Grid.Row="10" Content="Powrót do menu głównego" />
+        <Label Grid.Column="1" Grid.Row="0" Content="Klawisz" />
+        <TextBox Grid.Column="1" Grid.Row="1" Name="t1" KeyDown="text_KeyDown" />
         <TextBox Grid.Column="1" Grid.Row="2" Name="t2" KeyDown="text_KeyDown" />
         <TextBox Grid.Column="1" Grid.Row="3" Name="t3" KeyDown="text_KeyDown" />
         <TextBox Grid.Column="1" Grid.Row="4" Name="t4" KeyDown="text_KeyDown" />
         <TextBox Grid.Column="1" Grid.Row="5" Name="t5" KeyDown="text_KeyDown" />
         <TextBox Grid.Column="1" Grid.Row="6" Name="t6" KeyDown="text_KeyDown" />
         <TextBox Grid.Column="1" Grid.Row="7" Name="t7" KeyDown="text_KeyDown" />
-        <TextBox Grid.Column="1" Grid.Row="8" Name="t8" IsEnabled="False" Text="P"/>
-        <TextBox Grid.Column="1" Grid.Row="9" Name="t9" IsEnabled="False" Text="S"/>
-        <TextBox Grid.Column="1" Grid.Row="10" Name="t10" IsEnabled="False" Text="ESC"/>
-        <Button Content="Zapisz" Grid.Row="11" Name="t11" Grid.ColumnSpan="2" Click="Button_Click"/>
+        <TextBox Grid.Column="1" Grid.Row="8" Name="t8" IsEnabled="False" Text="P" />
+        <TextBox Grid.Column="1" Grid.Row="9" Name="t9" IsEnabled="False" Text="S" />
+        <TextBox Grid.Column="1" Grid.Row="10" Name="t10" IsEnabled="False" Text="ESC" />
+        <Button Content="Zapisz" Grid.Row="11" Name="t11" Grid.ColumnSpan="2" Click="Button_Click" />
     </Grid>
 </UserControl>

@@ -1,14 +1,16 @@
 ﻿<UserControl x:Class="Bombbrothers.Interface.Screens.NewGame"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
              d:DesignHeight="670" d:DesignWidth="790">
     <Grid>
-        <TextBlock Text="BombBrothers" FontSize="36" FontFamily="Snap ITC" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,70,0,0"/>
+        <TextBlock Text="BombBrothers" FontSize="36" FontFamily="Snap ITC" HorizontalAlignment="Center"
+                   VerticalAlignment="Top" Margin="0,70,0,0" />
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Nowa gra, wybierz postać:" FontSize="20" FontWeight="Bold" Margin="0 0 0 10" HorizontalAlignment="Center" />
+            <TextBlock Text="Nowa gra, wybierz postać:" FontSize="20" FontWeight="Bold" Margin="0 0 0 10"
+                       HorizontalAlignment="Center" />
             <StackPanel Orientation="Horizontal">
                 <Border Name="Agile" Width="90" Height="130" MouseUp="Border_MouseUp" Margin="0,0,30,0">
                     <Image Source="pack://application:,,,/Resources/Bitmaps/player_agile.jpg" Stretch="Fill" />
@@ -20,11 +22,15 @@
                     <Image Source="pack://application:,,,/Resources/Bitmaps/player_shy.jpg" Stretch="Fill" />
                 </Border>
             </StackPanel>
-            <TextBlock Text="Wybierz poziom trudności:" FontSize="20" FontWeight="Bold" Margin="0 0 0 50" HorizontalAlignment="Center" />
+            <TextBlock Text="Wybierz poziom trudności:" FontSize="20" FontWeight="Bold" Margin="0 0 0 50"
+                       HorizontalAlignment="Center" />
             <StackPanel Orientation="Horizontal">
-                <TextBlock Name="Easy" Width="90" Text="Łatwy" Margin="0,0,30,0" MouseUp="TextBlock_MouseUp" FontSize="24"/>
-                <TextBlock Name="Medium" Width="90" Text="Średni" Margin="0,0,30,0" MouseUp="TextBlock_MouseUp" FontSize="24"/>
-                <TextBlock Name="Hard" Width="90" Text="Trudny" Margin="0,0,30,0" MouseUp="TextBlock_MouseUp" FontSize="24"/>
+                <TextBlock Name="Easy" Width="90" Text="Łatwy" Margin="0,0,30,0" MouseUp="TextBlock_MouseUp"
+                           FontSize="24" />
+                <TextBlock Name="Medium" Width="90" Text="Średni" Margin="0,0,30,0" MouseUp="TextBlock_MouseUp"
+                           FontSize="24" />
+                <TextBlock Name="Hard" Width="90" Text="Trudny" Margin="0,0,30,0" MouseUp="TextBlock_MouseUp"
+                           FontSize="24" />
             </StackPanel>
             <Button Content="Zacznij grę!" Click="Button_Click" />
         </StackPanel>

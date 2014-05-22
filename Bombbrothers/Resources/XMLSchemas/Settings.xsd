@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <xs:schema id="Settings"
-    targetNamespace="http://www.mini.pw.edu.pl/pi/"
-    elementFormDefault="qualified"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
->
+           targetNamespace="http://www.mini.pw.edu.pl/pi/"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="Settings">
     <xs:complexType>
       <xs:sequence>
@@ -14,13 +14,13 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element minOccurs="0" name="UserId" type="xs:unsignedLong" />
-                    <xs:element name="Up" type="xs:string" default="Up"/>
-                    <xs:element name="Down" type="xs:string" default="Down"/>
-                    <xs:element name="Left" type="xs:string" default="Left"/>
-                    <xs:element name="Right" type="xs:string" default="Right"/>
-                    <xs:element name="DropBomb" type="xs:string" default="Space"/>
-                    <xs:element name="UseBonus" type="xs:string" default="Ctrl"/>
-                    <xs:element name="UsePlayerBonus" type="xs:string" default="Alt"/>
+                    <xs:element name="Up" type="xs:string" default="Up" />
+                    <xs:element name="Down" type="xs:string" default="Down" />
+                    <xs:element name="Left" type="xs:string" default="Left" />
+                    <xs:element name="Right" type="xs:string" default="Right" />
+                    <xs:element name="DropBomb" type="xs:string" default="Space" />
+                    <xs:element name="UseBonus" type="xs:string" default="Ctrl" />
+                    <xs:element name="UsePlayerBonus" type="xs:string" default="Alt" />
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>

@@ -1,10 +1,10 @@
 ﻿<UserControl x:Class="Bombbrothers.Interface.Screens.HighScores"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <ListView ItemsSource="{Binding Scores}" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -12,7 +12,7 @@
                 <GridView>
                     <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding UserId}" />
                     <GridViewColumn Header="Login" Width="50" DisplayMemberBinding="{Binding UserName}" />
-                    <GridViewColumn Header="Poziom" Width="50" DisplayMemberBinding="{Binding Level}"/>
+                    <GridViewColumn Header="Poziom" Width="50" DisplayMemberBinding="{Binding Level}" />
                     <GridViewColumn Header="Punkty" Width="50" DisplayMemberBinding="{Binding UserScore}" />
                     <GridViewColumn Header="Data" Width="50" DisplayMemberBinding="{Binding Date}" />
                 </GridView>

@@ -1,19 +1,21 @@
-﻿using System.Windows;
-using Bombbrothers.Logic;
-using Bombbrothers.Interface.Screens;
-using System;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
-using System.Media;
+using System.Windows.Input;
+using Bombbrothers.Interface.Screens;
+using Bombbrothers.Logic;
+using Menu = Bombbrothers.Interface.Screens.Menu;
 
 namespace Bombbrothers
 {
     /// <summary>
-    /// Logika dla MainWindow.xaml
+    ///     Logika dla MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
         /// <summary>
-        /// Konstruktor. Przygotowuje system plików aplikacji oraz ustawia zawartość okna na kontrolkę Title. Kontrolkami używanymi przez MainWindow są kontrolki typu UserControl.
+        ///     Konstruktor. Przygotowuje system plików aplikacji oraz ustawia zawartość okna na kontrolkę Title. Kontrolkami
+        ///     używanymi przez MainWindow są kontrolki typu UserControl.
         /// </summary>
         public MainWindow()
         {
@@ -26,26 +28,27 @@ namespace Bombbrothers
         }
 
         /// <summary>
-        /// Metoda zmieniająca zawartość okna na kontrolkę podaną w parametrze.
+        ///     Metoda zmieniająca zawartość okna na kontrolkę podaną w parametrze.
         /// </summary>
         /// <param name="target">Docelowa zawartość okna.</param>
         public void Navigate(UserControl target)
         {
-            this.content.Children.Clear();
-            this.content.Children.Add(target);
+            content.Children.Clear();
+            content.Children.Add(target);
         }
 
         /// <summary>
-        /// Metoda zmieniająca zawartość okna na kontrolkę podaną w parametrze. Pozwala przekazać parametr pomiędzy kontrolkami.
+        ///     Metoda zmieniająca zawartość okna na kontrolkę podaną w parametrze. Pozwala przekazać parametr pomiędzy
+        ///     kontrolkami.
         /// </summary>
         /// <param name="target">Docelowa zawartość okna.</param>
         /// <param name="state">Obiekt przekazany między kontrolkami.</param>
         public void Navigate(UserControl target, object state)
         {
-            this.content.Children.Clear();
-            this.content.Children.Add(target);
+            content.Children.Clear();
+            content.Children.Add(target);
 
-            INavigable s = target as INavigable;
+            var s = target as INavigable;
 
             if (s != null)
             {
@@ -53,28 +56,29 @@ namespace Bombbrothers
             }
             else
             {
-                throw new ArgumentException("Target " + target.GetType().ToString() + " is not INavigable!");
+                throw new ArgumentException("Target " + target.GetType() + " is not INavigable!");
             }
         }
 
         /// <summary>
-        /// Kończy działanie całej aplikacji.
+        ///     Kończy działanie całej aplikacji.
         /// </summary>
         public void Exit()
         {
-            this.Close();
+            Close();
         }
 
         /// <summary>
-        /// Metoda przypisana do zdarzenia KeyDown głównego okna. Pozwala na wyjście do Menu Głównego za pomocą klawisza ESC w każdym miejscu działania programu.
+        ///     Metoda przypisana do zdarzenia KeyDown głównego okna. Pozwala na wyjście do Menu Głównego za pomocą klawisza ESC w
+        ///     każdym miejscu działania programu.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == System.Windows.Input.Key.Escape)
+            if (e.Key == Key.Escape)
             {
-                NavigationController.NavigateTo(new Bombbrothers.Interface.Screens.Menu());
+                NavigationController.NavigateTo(new Menu());
             }
         }
     }
