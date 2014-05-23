@@ -14,6 +14,9 @@ using System.Xml.Serialization;
 
 namespace Bombbrothers.Resources.XMLModel
 {
+    /// <summary>
+    /// Klasa wygenerowana automatycznie przez narzêdzie. Jest to model scheme xml.
+    /// </summary>
     public class Settings
     {
         private static XmlSerializer _serializer;
@@ -249,6 +252,9 @@ namespace Bombbrothers.Resources.XMLModel
         #endregion
     }
 
+    /// <summary>
+    /// Klasa wygenerowana automatycznie przez narzêdzie. Jest to model scheme xml.
+    /// </summary>
     public class SettingsControl
     {
         private static XmlSerializer _serializer;
