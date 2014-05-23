@@ -15,7 +15,7 @@ using System.Xml.Serialization;
 namespace Bombbrothers.Resources.XMLModel
 {
     /// <summary>
-    /// Klasa wygenerowana automatycznie przez narzêdzie. Jest to model scheme xml.
+    ///     Klasa wygenerowana automatycznie przez narzêdzie. Jest to model scheme xml.
     /// </summary>
     public class Users
     {
@@ -253,7 +253,7 @@ namespace Bombbrothers.Resources.XMLModel
     }
 
     /// <summary>
-    /// Klasa wygenerowana automatycznie przez narzêdzie. Jest to model scheme xml.
+    ///     Klasa wygenerowana automatycznie przez narzêdzie. Jest to model scheme xml.
     /// </summary>
     public class UsersUser
     {

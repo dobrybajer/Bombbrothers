@@ -307,7 +307,7 @@ namespace Bombbrothers.GameObjects
 
                 count++;
 
-                if (y + count > GameConst.MapRows)
+                if (y + count == GameConst.MapRows)
                     break;
 
                 type = GameParameters.ActualBoard.GetTile(y + count, x).Type;
