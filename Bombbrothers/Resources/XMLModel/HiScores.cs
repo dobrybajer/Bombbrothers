@@ -12,30 +12,24 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Bombbrothers
+namespace Bombbrothers.Resources.XMLModel
 {
     public class Scores
     {
-        private static XmlSerializer serializer;
-        private List<ScoresScore> scores1Field;
+        private static XmlSerializer _serializer;
 
-        [XmlArray("Scores")]
-        [XmlArrayItem("Score", IsNullable = false)]
-        public List<ScoresScore> Scores1
-        {
-            get { return scores1Field; }
-            set { scores1Field = value; }
-        }
+        [XmlArray("Scores"), XmlArrayItem("Score", IsNullable = false)]
+        public List<ScoresScore> Scores1 { get; set; }
 
         private static XmlSerializer Serializer
         {
             get
             {
-                if ((serializer == null))
+                if ((_serializer == null))
                 {
-                    serializer = new XmlSerializer(typeof (Scores));
+                    _serializer = new XmlSerializer(typeof (Scores));
                 }
-                return serializer;
+                return _serializer;
             }
         }
 
@@ -52,9 +46,8 @@ namespace Bombbrothers
             try
             {
                 memoryStream = new MemoryStream();
-                var xmlWriterSettings = new XmlWriterSettings();
-                xmlWriterSettings.Encoding = encoding;
-                XmlWriter xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
+                var xmlWriterSettings = new XmlWriterSettings {Encoding = encoding};
+                var xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
                 Serializer.Serialize(xmlWriter, this);
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 streamReader = new StreamReader(memoryStream);
@@ -103,7 +96,7 @@ namespace Bombbrothers
 
         public static bool Deserialize(string xml, out Scores obj)
         {
-            Exception exception = null;
+            Exception exception;
             return Deserialize(xml, out obj, out exception);
         }
 
@@ -128,6 +121,7 @@ namespace Bombbrothers
         ///     Serializes current Scores object into file
         /// </summary>
         /// <param name="fileName">full path of outupt xml file</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="exception">output Exception value if failed</param>
         /// <returns>true if can serialize and save into file; otherwise, false</returns>
         public virtual bool SaveToFile(string fileName, Encoding encoding, out Exception exception)
@@ -160,7 +154,7 @@ namespace Bombbrothers
             StreamWriter streamWriter = null;
             try
             {
-                string xmlString = Serialize(encoding);
+                var xmlString = Serialize(encoding);
                 streamWriter = new StreamWriter(fileName, false, Encoding.UTF8);
                 streamWriter.WriteLine(xmlString);
                 streamWriter.Close();
@@ -178,6 +172,7 @@ namespace Bombbrothers
         ///     Deserializes xml markup from file into an Scores object
         /// </summary>
         /// <param name="fileName">string xml file to load and deserialize</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="obj">Output Scores object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
@@ -204,7 +199,7 @@ namespace Bombbrothers
 
         public static bool LoadFromFile(string fileName, out Scores obj)
         {
-            Exception exception = null;
+            Exception exception;
             return LoadFromFile(fileName, out obj, out exception);
         }
 
@@ -221,7 +216,7 @@ namespace Bombbrothers
             {
                 file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 sr = new StreamReader(file, encoding);
-                string xmlString = sr.ReadToEnd();
+                var xmlString = sr.ReadToEnd();
                 sr.Close();
                 file.Close();
                 return Deserialize(xmlString);
@@ -256,54 +251,32 @@ namespace Bombbrothers
 
     public class ScoresScore
     {
-        private static XmlSerializer serializer;
-        private DateTime dateField;
-        private int levelField;
-        private ulong userIdField;
+        private static XmlSerializer _serializer;
+        private DateTime _dateField;
 
-        private string userNameField;
+        public ulong UserId { get; set; }
 
-        private double userScoreField;
+        public string UserName { get; set; }
 
-        public ulong UserId
-        {
-            get { return userIdField; }
-            set { userIdField = value; }
-        }
+        public double UserScore { get; set; }
 
-        public string UserName
-        {
-            get { return userNameField; }
-            set { userNameField = value; }
-        }
-
-        public double UserScore
-        {
-            get { return userScoreField; }
-            set { userScoreField = value; }
-        }
-
-        public int Level
-        {
-            get { return levelField; }
-            set { levelField = value; }
-        }
+        public int Level { get; set; }
 
         public DateTime Date
         {
-            get { return dateField; }
-            set { dateField = value; }
+            get { return _dateField; }
+            set { _dateField = value; }
         }
 
         private static XmlSerializer Serializer
         {
             get
             {
-                if ((serializer == null))
+                if ((_serializer == null))
                 {
-                    serializer = new XmlSerializer(typeof (ScoresScore));
+                    _serializer = new XmlSerializer(typeof (ScoresScore));
                 }
-                return serializer;
+                return _serializer;
             }
         }
 
@@ -320,9 +293,8 @@ namespace Bombbrothers
             try
             {
                 memoryStream = new MemoryStream();
-                var xmlWriterSettings = new XmlWriterSettings();
-                xmlWriterSettings.Encoding = encoding;
-                XmlWriter xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
+                var xmlWriterSettings = new XmlWriterSettings {Encoding = encoding};
+                var xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
                 Serializer.Serialize(xmlWriter, this);
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 streamReader = new StreamReader(memoryStream);
@@ -371,7 +343,7 @@ namespace Bombbrothers
 
         public static bool Deserialize(string xml, out ScoresScore obj)
         {
-            Exception exception = null;
+            Exception exception;
             return Deserialize(xml, out obj, out exception);
         }
 
@@ -396,6 +368,7 @@ namespace Bombbrothers
         ///     Serializes current ScoresScore object into file
         /// </summary>
         /// <param name="fileName">full path of outupt xml file</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="exception">output Exception value if failed</param>
         /// <returns>true if can serialize and save into file; otherwise, false</returns>
         public virtual bool SaveToFile(string fileName, Encoding encoding, out Exception exception)
@@ -428,7 +401,7 @@ namespace Bombbrothers
             StreamWriter streamWriter = null;
             try
             {
-                string xmlString = Serialize(encoding);
+                var xmlString = Serialize(encoding);
                 streamWriter = new StreamWriter(fileName, false, Encoding.UTF8);
                 streamWriter.WriteLine(xmlString);
                 streamWriter.Close();
@@ -446,6 +419,7 @@ namespace Bombbrothers
         ///     Deserializes xml markup from file into an ScoresScore object
         /// </summary>
         /// <param name="fileName">string xml file to load and deserialize</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="obj">Output ScoresScore object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
@@ -472,7 +446,7 @@ namespace Bombbrothers
 
         public static bool LoadFromFile(string fileName, out ScoresScore obj)
         {
-            Exception exception = null;
+            Exception exception;
             return LoadFromFile(fileName, out obj, out exception);
         }
 
@@ -489,7 +463,7 @@ namespace Bombbrothers
             {
                 file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 sr = new StreamReader(file, encoding);
-                string xmlString = sr.ReadToEnd();
+                var xmlString = sr.ReadToEnd();
                 sr.Close();
                 file.Close();
                 return Deserialize(xmlString);

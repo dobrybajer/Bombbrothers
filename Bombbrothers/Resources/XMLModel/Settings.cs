@@ -12,29 +12,24 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Bombbrothers
+namespace Bombbrothers.Resources.XMLModel
 {
     public class Settings
     {
-        private static XmlSerializer serializer;
-        private List<SettingsControl> controlsField;
+        private static XmlSerializer _serializer;
 
         [XmlArrayItem("Control", IsNullable = false)]
-        public List<SettingsControl> Controls
-        {
-            get { return controlsField; }
-            set { controlsField = value; }
-        }
+        public List<SettingsControl> Controls { get; set; }
 
         private static XmlSerializer Serializer
         {
             get
             {
-                if ((serializer == null))
+                if ((_serializer == null))
                 {
-                    serializer = new XmlSerializer(typeof (Settings));
+                    _serializer = new XmlSerializer(typeof (Settings));
                 }
-                return serializer;
+                return _serializer;
             }
         }
 
@@ -51,9 +46,8 @@ namespace Bombbrothers
             try
             {
                 memoryStream = new MemoryStream();
-                var xmlWriterSettings = new XmlWriterSettings();
-                xmlWriterSettings.Encoding = encoding;
-                XmlWriter xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
+                var xmlWriterSettings = new XmlWriterSettings {Encoding = encoding};
+                var xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
                 Serializer.Serialize(xmlWriter, this);
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 streamReader = new StreamReader(memoryStream);
@@ -102,7 +96,7 @@ namespace Bombbrothers
 
         public static bool Deserialize(string xml, out Settings obj)
         {
-            Exception exception = null;
+            Exception exception;
             return Deserialize(xml, out obj, out exception);
         }
 
@@ -127,6 +121,7 @@ namespace Bombbrothers
         ///     Serializes current Settings object into file
         /// </summary>
         /// <param name="fileName">full path of outupt xml file</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="exception">output Exception value if failed</param>
         /// <returns>true if can serialize and save into file; otherwise, false</returns>
         public virtual bool SaveToFile(string fileName, Encoding encoding, out Exception exception)
@@ -177,6 +172,7 @@ namespace Bombbrothers
         ///     Deserializes xml markup from file into an Settings object
         /// </summary>
         /// <param name="fileName">string xml file to load and deserialize</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="obj">Output Settings object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
@@ -203,7 +199,7 @@ namespace Bombbrothers
 
         public static bool LoadFromFile(string fileName, out Settings obj)
         {
-            Exception exception = null;
+            Exception exception;
             return LoadFromFile(fileName, out obj, out exception);
         }
 
@@ -220,7 +216,7 @@ namespace Bombbrothers
             {
                 file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 sr = new StreamReader(file, encoding);
-                string xmlString = sr.ReadToEnd();
+                var xmlString = sr.ReadToEnd();
                 sr.Close();
                 file.Close();
                 return Deserialize(xmlString);
@@ -255,97 +251,47 @@ namespace Bombbrothers
 
     public class SettingsControl
     {
-        private static XmlSerializer serializer;
-        private string downField;
-        private string dropBombField;
-
-        private string leftField;
-
-        private string rightField;
-        private string upField;
-
-        private string useBonusField;
-
-        private string usePlayerBonusField;
-        private ulong userIdField;
-
-        private bool userIdFieldSpecified;
+        private static XmlSerializer _serializer;
 
         public SettingsControl()
         {
-            upField = "Up";
-            downField = "Down";
-            leftField = "Left";
-            rightField = "Right";
-            dropBombField = "Space";
-            useBonusField = "Ctrl";
-            usePlayerBonusField = "Alt";
+            Up = "Up";
+            Down = "Down";
+            Left = "Left";
+            Right = "Right";
+            DropBomb = "Space";
+            UseBonus = "Ctrl";
+            UsePlayerBonus = "Alt";
         }
 
-        public ulong UserId
-        {
-            get { return userIdField; }
-            set { userIdField = value; }
-        }
+        public ulong UserId { get; set; }
 
         [XmlIgnore]
-        public bool UserIdSpecified
-        {
-            get { return userIdFieldSpecified; }
-            set { userIdFieldSpecified = value; }
-        }
+        public bool UserIdSpecified { get; set; }
 
-        public string Up
-        {
-            get { return upField; }
-            set { upField = value; }
-        }
+        public string Up { get; set; }
 
-        public string Down
-        {
-            get { return downField; }
-            set { downField = value; }
-        }
+        public string Down { get; set; }
 
-        public string Left
-        {
-            get { return leftField; }
-            set { leftField = value; }
-        }
+        public string Left { get; set; }
 
-        public string Right
-        {
-            get { return rightField; }
-            set { rightField = value; }
-        }
+        public string Right { get; set; }
 
-        public string DropBomb
-        {
-            get { return dropBombField; }
-            set { dropBombField = value; }
-        }
+        public string DropBomb { get; set; }
 
-        public string UseBonus
-        {
-            get { return useBonusField; }
-            set { useBonusField = value; }
-        }
+        public string UseBonus { get; set; }
 
-        public string UsePlayerBonus
-        {
-            get { return usePlayerBonusField; }
-            set { usePlayerBonusField = value; }
-        }
+        public string UsePlayerBonus { get; set; }
 
         private static XmlSerializer Serializer
         {
             get
             {
-                if ((serializer == null))
+                if ((_serializer == null))
                 {
-                    serializer = new XmlSerializer(typeof (SettingsControl));
+                    _serializer = new XmlSerializer(typeof (SettingsControl));
                 }
-                return serializer;
+                return _serializer;
             }
         }
 
@@ -362,8 +308,7 @@ namespace Bombbrothers
             try
             {
                 memoryStream = new MemoryStream();
-                var xmlWriterSettings = new XmlWriterSettings();
-                xmlWriterSettings.Encoding = encoding;
+                var xmlWriterSettings = new XmlWriterSettings {Encoding = encoding};
                 XmlWriter xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
                 Serializer.Serialize(xmlWriter, this);
                 memoryStream.Seek(0, SeekOrigin.Begin);
@@ -413,7 +358,7 @@ namespace Bombbrothers
 
         public static bool Deserialize(string xml, out SettingsControl obj)
         {
-            Exception exception = null;
+            Exception exception;
             return Deserialize(xml, out obj, out exception);
         }
 
@@ -438,6 +383,7 @@ namespace Bombbrothers
         ///     Serializes current SettingsControl object into file
         /// </summary>
         /// <param name="fileName">full path of outupt xml file</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="exception">output Exception value if failed</param>
         /// <returns>true if can serialize and save into file; otherwise, false</returns>
         public virtual bool SaveToFile(string fileName, Encoding encoding, out Exception exception)
@@ -470,7 +416,7 @@ namespace Bombbrothers
             StreamWriter streamWriter = null;
             try
             {
-                string xmlString = Serialize(encoding);
+                var xmlString = Serialize(encoding);
                 streamWriter = new StreamWriter(fileName, false, Encoding.UTF8);
                 streamWriter.WriteLine(xmlString);
                 streamWriter.Close();
@@ -488,6 +434,7 @@ namespace Bombbrothers
         ///     Deserializes xml markup from file into an SettingsControl object
         /// </summary>
         /// <param name="fileName">string xml file to load and deserialize</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="obj">Output SettingsControl object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
@@ -515,7 +462,7 @@ namespace Bombbrothers
 
         public static bool LoadFromFile(string fileName, out SettingsControl obj)
         {
-            Exception exception = null;
+            Exception exception;
             return LoadFromFile(fileName, out obj, out exception);
         }
 

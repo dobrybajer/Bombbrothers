@@ -5,6 +5,7 @@ using Bombbrothers.GameObjects.Bonuses;
 using Bombbrothers.GameObjects.Enemies;
 using Bombbrothers.GameObjects.Map;
 using Bombbrothers.Logic;
+using Bombbrothers.Resources.XMLModel;
 
 namespace Bombbrothers.Additional
 {

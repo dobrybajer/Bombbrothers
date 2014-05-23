@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using Bombbrothers.Additional;
+using Bombbrothers.Resources.XMLModel;
 
 namespace Bombbrothers.Logic
 {
@@ -88,7 +89,7 @@ namespace Bombbrothers.Logic
         {
             try
             {
-                var settings = Bombbrothers.Settings.Deserialize(ReadFile(Path.Combine(Dir, Settings)));
+                var settings = Resources.XMLModel.Settings.Deserialize(ReadFile(Path.Combine(Dir, Settings)));
                 var sc = new SettingsControl {UserId = id, UserIdSpecified = true};
                 settings.Controls.Add(sc);
 
@@ -110,7 +111,7 @@ namespace Bombbrothers.Logic
         {
             try
             {
-                var settings = Bombbrothers.Settings.Deserialize(ReadFile(Path.Combine(Dir, Settings)));
+                var settings = Resources.XMLModel.Settings.Deserialize(ReadFile(Path.Combine(Dir, Settings)));
                 var ind = settings.Controls.FindIndex(x => x.UserId == sc.UserId);
                 settings.Controls[ind] = sc;
 
@@ -134,7 +135,7 @@ namespace Bombbrothers.Logic
         {
             try
             {
-                var settings = Bombbrothers.Settings.Deserialize(ReadFile(Path.Combine(Dir, Settings)));
+                var settings = Resources.XMLModel.Settings.Deserialize(ReadFile(Path.Combine(Dir, Settings)));
                 GameParameters.ActualSettings = settings.Controls.Find(x => x.UserId == id);
             }
             catch (Exception)
@@ -152,7 +153,7 @@ namespace Bombbrothers.Logic
         {
             try
             {
-                var users = Bombbrothers.Users.Deserialize(ReadFile(Path.Combine(Dir, Users)));
+                var users = Resources.XMLModel.Users.Deserialize(ReadFile(Path.Combine(Dir, Users)));
 
                 var user = new UsersUser
                 {
@@ -186,7 +187,7 @@ namespace Bombbrothers.Logic
         {
             try
             {
-                var users = Bombbrothers.Users.Deserialize(ReadFile(Path.Combine(Dir, Users)));
+                var users = Resources.XMLModel.Users.Deserialize(ReadFile(Path.Combine(Dir, Users)));
                 var user = users.Users1.Find(x => x.Name == name);
                 if (user == null)
                 {

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Bombbrothers.Additional;
 using Bombbrothers.Logic;
+using Bombbrothers.Resources.XMLModel;
 
 namespace Bombbrothers.Interface.Screens
 {

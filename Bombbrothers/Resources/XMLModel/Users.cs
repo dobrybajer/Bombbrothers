@@ -12,30 +12,24 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Bombbrothers
+namespace Bombbrothers.Resources.XMLModel
 {
     public class Users
     {
-        private static XmlSerializer serializer;
-        private List<UsersUser> users1Field;
+        private static XmlSerializer _serializer;
 
-        [XmlArray("Users")]
-        [XmlArrayItem("User", IsNullable = false)]
-        public List<UsersUser> Users1
-        {
-            get { return users1Field; }
-            set { users1Field = value; }
-        }
+        [XmlArray("Users"), XmlArrayItem("User", IsNullable = false)]
+        public List<UsersUser> Users1 { get; set; }
 
         private static XmlSerializer Serializer
         {
             get
             {
-                if ((serializer == null))
+                if ((_serializer == null))
                 {
-                    serializer = new XmlSerializer(typeof (Users));
+                    _serializer = new XmlSerializer(typeof (Users));
                 }
-                return serializer;
+                return _serializer;
             }
         }
 
@@ -52,8 +46,7 @@ namespace Bombbrothers
             try
             {
                 memoryStream = new MemoryStream();
-                var xmlWriterSettings = new XmlWriterSettings();
-                xmlWriterSettings.Encoding = encoding;
+                var xmlWriterSettings = new XmlWriterSettings {Encoding = encoding};
                 XmlWriter xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
                 Serializer.Serialize(xmlWriter, this);
                 memoryStream.Seek(0, SeekOrigin.Begin);
@@ -103,7 +96,7 @@ namespace Bombbrothers
 
         public static bool Deserialize(string xml, out Users obj)
         {
-            Exception exception = null;
+            Exception exception;
             return Deserialize(xml, out obj, out exception);
         }
 
@@ -128,6 +121,7 @@ namespace Bombbrothers
         ///     Serializes current Users object into file
         /// </summary>
         /// <param name="fileName">full path of outupt xml file</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="exception">output Exception value if failed</param>
         /// <returns>true if can serialize and save into file; otherwise, false</returns>
         public virtual bool SaveToFile(string fileName, Encoding encoding, out Exception exception)
@@ -178,6 +172,7 @@ namespace Bombbrothers
         ///     Deserializes xml markup from file into an Users object
         /// </summary>
         /// <param name="fileName">string xml file to load and deserialize</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="obj">Output Users object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
@@ -204,7 +199,7 @@ namespace Bombbrothers
 
         public static bool LoadFromFile(string fileName, out Users obj)
         {
-            Exception exception = null;
+            Exception exception;
             return LoadFromFile(fileName, out obj, out exception);
         }
 
@@ -256,49 +251,26 @@ namespace Bombbrothers
 
     public class UsersUser
     {
-        private static XmlSerializer serializer;
-        private ulong idField;
+        private static XmlSerializer _serializer;
 
-        private bool idFieldSpecified;
-
-        private string nameField;
-
-        private byte[] passwordField;
-
-        public ulong Id
-        {
-            get { return idField; }
-            set { idField = value; }
-        }
+        public ulong Id { get; set; }
 
         [XmlIgnore]
-        public bool IdSpecified
-        {
-            get { return idFieldSpecified; }
-            set { idFieldSpecified = value; }
-        }
+        public bool IdSpecified { get; set; }
 
-        public string Name
-        {
-            get { return nameField; }
-            set { nameField = value; }
-        }
+        public string Name { get; set; }
 
-        public byte[] Password
-        {
-            get { return passwordField; }
-            set { passwordField = value; }
-        }
+        public byte[] Password { get; set; }
 
         private static XmlSerializer Serializer
         {
             get
             {
-                if ((serializer == null))
+                if ((_serializer == null))
                 {
-                    serializer = new XmlSerializer(typeof (UsersUser));
+                    _serializer = new XmlSerializer(typeof (UsersUser));
                 }
-                return serializer;
+                return _serializer;
             }
         }
 
@@ -315,9 +287,8 @@ namespace Bombbrothers
             try
             {
                 memoryStream = new MemoryStream();
-                var xmlWriterSettings = new XmlWriterSettings();
-                xmlWriterSettings.Encoding = encoding;
-                XmlWriter xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
+                var xmlWriterSettings = new XmlWriterSettings {Encoding = encoding};
+                var xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
                 Serializer.Serialize(xmlWriter, this);
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 streamReader = new StreamReader(memoryStream);
@@ -366,7 +337,7 @@ namespace Bombbrothers
 
         public static bool Deserialize(string xml, out UsersUser obj)
         {
-            Exception exception = null;
+            Exception exception;
             return Deserialize(xml, out obj, out exception);
         }
 
@@ -391,6 +362,7 @@ namespace Bombbrothers
         ///     Serializes current UsersUser object into file
         /// </summary>
         /// <param name="fileName">full path of outupt xml file</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="exception">output Exception value if failed</param>
         /// <returns>true if can serialize and save into file; otherwise, false</returns>
         public virtual bool SaveToFile(string fileName, Encoding encoding, out Exception exception)
@@ -423,7 +395,7 @@ namespace Bombbrothers
             StreamWriter streamWriter = null;
             try
             {
-                string xmlString = Serialize(encoding);
+                var xmlString = Serialize(encoding);
                 streamWriter = new StreamWriter(fileName, false, Encoding.UTF8);
                 streamWriter.WriteLine(xmlString);
                 streamWriter.Close();
@@ -441,11 +413,13 @@ namespace Bombbrothers
         ///     Deserializes xml markup from file into an UsersUser object
         /// </summary>
         /// <param name="fileName">string xml file to load and deserialize</param>
+        /// <param name="encoding">encoding</param>
         /// <param name="obj">Output UsersUser object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
         public static bool LoadFromFile(string fileName, Encoding encoding, out UsersUser obj, out Exception exception)
         {
+            if (encoding == null) throw new ArgumentNullException("encoding");
             exception = null;
             obj = default(UsersUser);
             try
@@ -467,7 +441,7 @@ namespace Bombbrothers
 
         public static bool LoadFromFile(string fileName, out UsersUser obj)
         {
-            Exception exception = null;
+            Exception exception;
             return LoadFromFile(fileName, out obj, out exception);
         }
 
@@ -484,7 +458,7 @@ namespace Bombbrothers
             {
                 file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 sr = new StreamReader(file, encoding);
-                string xmlString = sr.ReadToEnd();
+                var xmlString = sr.ReadToEnd();
                 sr.Close();
                 file.Close();
                 return Deserialize(xmlString);

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Bombbrothers.Interface.Screens;
@@ -11,7 +10,7 @@ namespace Bombbrothers
     /// <summary>
     ///     Logika dla MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         /// <summary>
         ///     Konstruktor. Przygotowuje system plików aplikacji oraz ustawia zawartość okna na kontrolkę Title. Kontrolkami

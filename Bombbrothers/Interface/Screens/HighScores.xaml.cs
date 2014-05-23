@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bombbrothers.Logic;
+using Bombbrothers.Resources.XMLModel;
 
 namespace Bombbrothers.Interface.Screens
 {
